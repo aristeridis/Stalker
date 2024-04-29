@@ -9,10 +9,22 @@
     background-color: var(--color-secondary);
 }
 .text-primary {
-    color: var(--color-primary);
+    color: var(--color-primary) !important;
 }
 .text-secondary {
     color: var(--color-secondary);
+}
+.bg-white{
+    background-color: white;
+}
+.bg-black{
+    background-color: black;
+}
+.text-black{
+    color: black;
+}
+.text-white{
+    color: white;
 }
 .border-primary {
     border-color: var(--color-primary);

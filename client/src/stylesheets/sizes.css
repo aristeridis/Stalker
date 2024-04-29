@@ -25,3 +25,9 @@
 .text-2xl {
     font-size: 24 px;
 }
+text-3xl {
+    font-size: 30 px;
+}
+.border{
+border-width: 1px;
+}
