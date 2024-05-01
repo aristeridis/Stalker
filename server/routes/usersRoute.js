@@ -33,7 +33,7 @@ router.post('/register', async (req, res) => {
 });
 router.post('/login', async (req, res) => {
     try {
-        const user = await user.findOne({ email: req.body.email });
+        const user = await User.findOne({ email: req.body.email });
         if (!user) {
             return res.send({
                 success: false,
@@ -45,7 +45,7 @@ router.post('/login', async (req, res) => {
 
 
         if (!validPassword) {
-            res.send({
+            return res.send({
                 success: false,
                 message: 'invalid pass',
             });
