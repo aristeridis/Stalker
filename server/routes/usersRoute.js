@@ -3,6 +3,7 @@ const { message } = require('statuses');
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const authMW = require('../middlewares/authMW');
 
 router.post('/register', async (req, res) => {
     try {
@@ -65,4 +66,19 @@ router.post('/login', async (req, res) => {
         });
     }
 });
+router.get('/get-user', authMW, async (req, res) => {
+    try {
+        const user = await User.findById(req.body.userId).select('-password')
+        req.send({
+            success: true,
+            message: "User data retrieved",
+            data: user,
+        })
+    } catch (error) {
+        res.send({
+            success: false,
+            message: error.message,
+        });
+    }
+})
 module.exports = router;
