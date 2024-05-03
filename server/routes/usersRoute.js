@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { message } = require('statuses');
+//const { message } = require('statuses');
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -66,14 +66,14 @@ router.post('/login', async (req, res) => {
         });
     }
 });
-router.get('/get-user', authMW, async (req, res) => {
+router.get('/get-current-user', authMW, async (req, res) => {
     try {
         const user = await User.findById(req.body.userId).select('-password')
-        req.send({
+        res.send({
             success: true,
             message: "User data retrieved",
             data: user,
-        })
+        });
     } catch (error) {
         res.send({
             success: false,
