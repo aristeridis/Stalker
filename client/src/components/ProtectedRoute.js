@@ -23,7 +23,9 @@ function ProtectedRoute({ children }) {
         getCurrentUser();
     }, [])
     return (
-        <div>{children}</div>
+       user&& <div>
+        {user.name}
+        {children}</div>
     )
 }
 
