@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { GetCurrentUser } from '../apicalls/users'
 import { message } from 'antd';
+import { useNavigate} from 'react-router-dom';
 //import { message } from 'statuses';
 
 function ProtectedRoute({ children }) {
+    const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const getCurrentUser = async () => {
         try {
@@ -20,7 +22,12 @@ function ProtectedRoute({ children }) {
         }
     }
     useEffect(() => {
-        getCurrentUser();
+        if (localStorage.getItem('token')){
+            getCurrentUser();
+        }else{
+             navigate('/login');
+        }
+       
     }, [])
     return (
        user&& <div>
