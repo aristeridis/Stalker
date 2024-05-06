@@ -1,38 +1,40 @@
-import React, { useEffect, useState } from 'react'
-import { GetCurrentUser } from '../apicalls/users'
+import React, { useEffect } from 'react';
+import { GetCurrentUser } from '../apicalls/users';
 import { message } from 'antd';
-import { useNavigate} from 'react-router-dom';
-//import { message } from 'statuses';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { SetUser } from '../redux/usersSlice';
 
 function ProtectedRoute({ children }) {
+    const { user } = useSelector((state) => state.users);
     const navigate = useNavigate();
-    const [user, setUser] = useState(null);
+    const dispatch = useDispatch();
     const getCurrentUser = async () => {
         try {
             const response = await GetCurrentUser();
             if (response.success) {
-                setUser(response.data);
+                dispatch(SetUser(response.data));
             } else {
-                setUser(null);
+                dispatch(SetUser(null));
                 message.error(response.message);
             }
         } catch (error) {
-            setUser(null);
+            dispatch(SetUser(null));
             message.error(error.message);
         }
-    }
+    };
     useEffect(() => {
-        if (localStorage.getItem('token')){
+        if (localStorage.getItem('token')) { 
             getCurrentUser();
-        }else{
-             navigate('/login');
+        } else {
+            navigate('/login');
         }
-       
+
     }, [])
     return (
-       user&& <div>
-        {user.name}
-        {children}</div>
+        user && <div>
+            {user.name}
+            {children}</div>
     )
 }
 
