@@ -15,8 +15,8 @@ function App() {
   const { loading } = useSelector((state) => state.loaders);
   return (
     <div>
-      {loading && (<div className='loader-parent '>
-        <div className='loader'></div>
+      {loading && (<div className="loader-parent">
+        <div className="loader"></div>
       </div>)}
 
       <BrowserRouter>
