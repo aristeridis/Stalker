@@ -28,18 +28,30 @@ function ProtectedRoute({ children }) {
         }
     };
     useEffect(() => {
-        if (localStorage.getItem('token')) { 
+        if (localStorage.getItem('token')) {
             getCurrentUser();
         } else {
             navigate('/login');
         }
 
-    }, [])
+    }, []);
     return (
-        user && <div>
-            {user.name}
-            {children}</div>
+        user &&(
+            
+        <div className='layout p-1'>
+            <div className='header bg-primary flex justify-between'>
+                    <div>
+                        <h1 className='text-xl text.white'>
+                            Stalker</h1>
+                    </div>
+                </div>
+                <div className='content'>
+                {children}
+            </div>
+        </div>
     )
+);
 }
+
 
 export default ProtectedRoute
