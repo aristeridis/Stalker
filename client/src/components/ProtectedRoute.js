@@ -4,6 +4,7 @@ import { message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { SetUser } from '../redux/usersSlice';
+import { HideLoading, ShowLoading } from '../redux/loadersSlice';
 
 function ProtectedRoute({ children }) {
     const { user } = useSelector((state) => state.users);
@@ -11,7 +12,9 @@ function ProtectedRoute({ children }) {
     const dispatch = useDispatch();
     const getCurrentUser = async () => {
         try {
+            dispatch(ShowLoading())
             const response = await GetCurrentUser();
+            dispatch(HideLoading())
             if (response.success) {
                 dispatch(SetUser(response.data));
             } else {
@@ -19,6 +22,7 @@ function ProtectedRoute({ children }) {
                 message.error(response.message);
             }
         } catch (error) {
+            dispatch(HideLoading())
             dispatch(SetUser(null));
             message.error(error.message);
         }
