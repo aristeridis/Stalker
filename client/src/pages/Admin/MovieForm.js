@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Col, Form, Modal, Row } from 'antd'
 import Button from '../../components/Button';
 import FormItem from 'antd/es/form/FormItem'
@@ -28,7 +28,7 @@ function MovieForm({ showMovieFormModal, setShowMovieFormModal, selectedMovie, s
       } dispatch(HideLoading())
     } catch (error) {
       dispatch(HideLoading())
-      message.error(error.message)
+        message.error(error.message);
 
     }
   };
@@ -65,7 +65,7 @@ function MovieForm({ showMovieFormModal, setShowMovieFormModal, selectedMovie, s
           </Col>
           <Col span={8}>
             <Form.Item label="Κυκλοφορία" name="releaseDate">
-              <input type='text' />
+              <input type='date' />
             </Form.Item>
           </Col>
           <Col span={8}>
@@ -79,7 +79,7 @@ function MovieForm({ showMovieFormModal, setShowMovieFormModal, selectedMovie, s
             </Form.Item>
           </Col>
         </Row>
-        <div className='flex justify-end'>
+        <div className='flex justify-end gap-1'>
           <Button title='Cancel' variant="outlined" type='button'
             onClick={() => setShowMovieFormModal(false)} />
           <Button title='Save' type="submit" />
