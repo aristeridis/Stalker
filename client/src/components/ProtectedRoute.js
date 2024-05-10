@@ -48,7 +48,7 @@ function ProtectedRoute({ children }) {
                             Stalker</h1>
                     </div>
                     <div className='bg-white p-1 flex gap-1'>
-                        <i class="ri-user-6-line text-primary"></i>
+                        <i className="ri-user-6-line text-primary"></i>
                         <h1 className='text-sm underline'
                             onClick={() => {
                                 if (user.isAdmin) {
@@ -59,7 +59,7 @@ function ProtectedRoute({ children }) {
                             }>
                             {user.name}
                         </h1>
-                        <i class="ri-logout-circle-r-line ml-2"
+                        <i className="ri-logout-circle-r-line ml-2"
                             onClick={() => {
                                 localStorage.removeItem('token');
                                 navigate("/login")
