@@ -3,7 +3,8 @@ import { Col, Form, Modal, Row } from 'antd'
 import Button from '../../components/Button';
 import FormItem from 'antd/es/form/FormItem'
 import { useDispatch } from "react-redux"
-import { message } from 'statuses';
+//import { message } from 'statuses';
+import { message } from 'antd';
 import { HideLoading, ShowLoading } from '../../redux/loadersSlice';
 import { AddMovie } from '../../apicalls/movies';
 
