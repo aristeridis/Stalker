@@ -33,6 +33,9 @@
     align-items: center;
     z-index: 999999;
 }
+i{
+    font-size: 18px;
+}
 
 .loader {
     height: 30px;

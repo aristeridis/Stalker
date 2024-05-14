@@ -19,4 +19,20 @@ router.post('/add-movie', authMW, async (req, res) => {
         });
     }
 });
+router.get('/get-all-movies', async (req, res) => {
+    try {const movies =await Movie.find();
+    res.send({
+        success: true,
+        message: "Got the Movies ",
+        data:movies
+    });
+    }catch(error){
+        res.send({
+            success: false ,
+            message: error.message,
+        });
+
+    }
+});
+
 module.exports=router;
