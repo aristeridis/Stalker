@@ -30,9 +30,21 @@ function MoviesList() {
         }
     }
     const columns = [{
+        title: "Poster",
+        dataIndex: "poster",
+        render: (text, record) => {
+            return (
+                <img src={record.poster}
+                    alt='poster'
+                    width='100'
+                    height='70' />
+            );
+        },
+    }, {
         title: "Name",
         dataIndex: "title",
     },
+
     {
         title: "Description",
         dataIndex: "description",
@@ -60,7 +72,12 @@ function MoviesList() {
         dataIndex: "action",
         render: (text, record) => {
             return <div className='flex gap-2'>
-                <i className="ri-pencil-fill"></i>
+                <i className="ri-pencil-fill"
+                    onClick={() => {
+                        setSelectedMovie(record);
+                        setFormType("edit");
+                        setShowMovieFormModal(true);
+                    }}></i>
                 <i className="ri-delete-bin-fill"></i>
             </div>
         }
@@ -81,13 +98,14 @@ function MoviesList() {
                     }} />
             </div>
             <Table columns={columns} dataSource={movies} />
-            {showMovieFormModal && <MovieForm
+            {showMovieFormModal && (<MovieForm
                 showMovieFormModal={showMovieFormModal}
                 setShowMovieFormModal={setShowMovieFormModal}
                 selectedMovie={selectedMovie}
                 setSelectedMovie={setSelectedMovie}
                 formType={formType}
-            />}
+                getData={getData}
+            />)}
         </div>
     )
 }

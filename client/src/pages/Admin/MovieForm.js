@@ -6,10 +6,14 @@ import { useDispatch } from "react-redux"
 //import { message } from 'statuses';
 import { message } from 'antd';
 import { HideLoading, ShowLoading } from '../../redux/loadersSlice';
-import { AddMovie } from '../../apicalls/movies';
+import { AddMovie, UpdateMovie } from '../../apicalls/movies';
+import moment from 'moment';
 
 
-function MovieForm({ showMovieFormModal, setShowMovieFormModal, selectedMovie, setSelectedMovie, formType }) {
+function MovieForm({ showMovieFormModal, setShowMovieFormModal, selectedMovie, setSelectedMovie, formType, getData, }) {
+  if (selectedMovie) {
+    selectedMovie.releaseDate = moment(selectedMovie.releaseDate).format("YYYY-MM-DD");
+  }
   const dispatch = useDispatch();
   const onFinish = async (values) => {
     try {
@@ -18,9 +22,13 @@ function MovieForm({ showMovieFormModal, setShowMovieFormModal, selectedMovie, s
       if (formType === "add") {
         response = await AddMovie(values)
       } else {
-
+        response = await UpdateMovie({
+          ...values,
+          movieId: selectedMovie._id
+        });
       }
       if (response.success) {
+        getData();
         message.success(response.message);
         setShowMovieFormModal(false);
       } else {
@@ -29,7 +37,7 @@ function MovieForm({ showMovieFormModal, setShowMovieFormModal, selectedMovie, s
       } dispatch(HideLoading())
     } catch (error) {
       dispatch(HideLoading())
-        message.error(error.message);
+      message.error(error.message);
 
     }
   };
@@ -37,12 +45,16 @@ function MovieForm({ showMovieFormModal, setShowMovieFormModal, selectedMovie, s
     <Modal
       title={formType === "add" ? "Add Movie" : "Edit Movie"}
       open={showMovieFormModal}
-      onCancel={() => setShowMovieFormModal(false)}
+      onCancel={() => {
+        setShowMovieFormModal(false)
+        setSelectedMovie(null)
+      }}
       footer={null}
       width={800}
     >
 
-      <Form layout='vertical' onFinish={onFinish}>
+      <Form layout='vertical' onFinish={onFinish}
+        initialValues={selectedMovie}>
         <Row gutter={16}>
           <Col span={24}>
             <Form.Item label="Τίτλος Ταινίας" name="title">
@@ -82,7 +94,10 @@ function MovieForm({ showMovieFormModal, setShowMovieFormModal, selectedMovie, s
         </Row>
         <div className='flex justify-end gap-1'>
           <Button title='Cancel' variant="outlined" type='button'
-            onClick={() => setShowMovieFormModal(false)} />
+            onClick={() => {
+              setShowMovieFormModal(false)
+              setSelectedMovie(null)
+            }} />
           <Button title='Save' type="submit" />
 
 

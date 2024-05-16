@@ -20,19 +20,35 @@ router.post('/add-movie', authMW, async (req, res) => {
     }
 });
 router.get('/get-all-movies', async (req, res) => {
-    try {const movies =await Movie.find();
-    res.send({
-        success: true,
-        message: "Got the Movies ",
-        data:movies
-    });
-    }catch(error){
+    try {
+        const movies = await Movie.find().sort({createdAt:-1});
         res.send({
-            success: false ,
+            success: true,
+            message: "Got the Movies ",
+            data: movies
+        });
+    } catch (error) {
+        res.send({
+            success: false,
+            message: error.message,
+        });
+
+    }
+});
+router.post('/update-movie', async (req, res) => {
+    try {
+        await Movie.findByIdAndUpdate(req.body.movieId, req.body);
+        res.send({
+            success: true,
+            message: "Movie updated",
+        });
+    } catch (error) {
+        res.send({
+            success: false,
             message: error.message,
         });
 
     }
 });
 
-module.exports=router;
+module.exports = router;

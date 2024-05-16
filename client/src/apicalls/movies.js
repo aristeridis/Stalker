@@ -16,3 +16,11 @@ export const GetAllMovies= async()=>{
         return error.data;
     }
 }
+export const UpdateMovie = async (paylod) => {
+    try {
+        const response = await axiosInstance.post("/api/movies/update-movie",paylod);
+        return response.data;
+    } catch (error) {
+        return error.response;
+    }
+}
