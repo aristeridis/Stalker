@@ -1,14 +1,14 @@
 const { axiosInstance } = require(".");
-export const AddMovie =async(paylod)=> {
+export const AddMovie = async (paylod) => {
     try {
-        const response =await axiosInstance.post("/api/movies/add-movie",paylod);
+        const response = await axiosInstance.post("/api/movies/add-movie", paylod);
         return response.data;
-        
+
     } catch (error) {
         return error.response;
     }
 }
-export const GetAllMovies= async()=>{
+export const GetAllMovies = async () => {
     try {
         const response = await axiosInstance.get("/api/movies/get-all-movies");
         return response.data;
@@ -18,7 +18,7 @@ export const GetAllMovies= async()=>{
 }
 export const UpdateMovie = async (paylod) => {
     try {
-        const response = await axiosInstance.post("/api/movies/update-movie",paylod);
+        const response = await axiosInstance.post("/api/movies/update-movie", paylod);
         return response.data;
     } catch (error) {
         return error.response;
@@ -26,7 +26,7 @@ export const UpdateMovie = async (paylod) => {
 }
 export const DeleteMovie = async (paylod) => {
     try {
-        const response = await axiosInstance.post ("/api/movies/delete-movie", paylod);
+        const response = await axiosInstance.post("/api/movies/delete-movie", paylod);
         return response.data;
     } catch (error) {
         return error.response;

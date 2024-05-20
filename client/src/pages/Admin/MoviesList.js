@@ -5,7 +5,8 @@ import moment from "moment";
 import { Table } from 'antd';
 import { useDispatch } from 'react-redux';
 import { DeleteMovie, GetAllMovies } from '../../apicalls/movies';
-import { message } from 'statuses';
+//import { message } from 'statuses';
+import { message } from 'antd';
 import { HideLoading, ShowLoading } from '../../redux/loadersSlice';
 
 function MoviesList() {
@@ -28,11 +29,13 @@ function MoviesList() {
             message.error(error.message);
 
         }
-    }
+    };
     const deleteMovie = async (movieId) => {
         try {
             dispatch(ShowLoading());
-            const response = await DeleteMovie({movieId, });
+            const response = await DeleteMovie({
+                movieId,
+            });
             if (response.success) {
                 message.success(response.message);
                 getData();
@@ -43,9 +46,8 @@ function MoviesList() {
         } catch (error) {
             dispatch(HideLoading());
             message.error(error.message);
-
         }
-    }
+    };
     const columns = [{
         title: "Poster",
         dataIndex: "poster",
@@ -95,10 +97,12 @@ function MoviesList() {
                         setFormType("edit");
                         setShowMovieFormModal(true);
                     }}></i>
-                <i className="ri-delete-bin-fill"
+                <i
+                    className="ri-delete-bin-line"
                     onClick={() => {
-                        deleteMovie(record._Id);
-                    }}></i>
+                        deleteMovie(record._id);
+                    }}
+                ></i>
             </div>
         }
     },
@@ -130,4 +134,4 @@ function MoviesList() {
     )
 }
 
-export default MoviesList
+export default MoviesList;

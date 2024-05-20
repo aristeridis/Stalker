@@ -35,7 +35,7 @@ router.get('/get-all-movies', async (req, res) => {
 
     }
 });
-router.post('/update-movie', authMW,async (req, res) => {
+router.post('/update-movie', authMW, async (req, res) => {
     try {
         await Movie.findByIdAndUpdate(req.body.movieId, req.body);
         res.send({
@@ -50,7 +50,7 @@ router.post('/update-movie', authMW,async (req, res) => {
 
     }
 });
-router.post('/delete-movie', authMW,async (req, res) => {
+router.post('/delete-movie', authMW, async (req, res) => {
     try {
         await Movie.findByIdAndDelete(req.body.movieId);
         res.send({
