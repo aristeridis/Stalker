@@ -4,9 +4,9 @@ import MovieForm from './MovieForm';
 import moment from "moment";
 import { Table } from 'antd';
 import { useDispatch } from 'react-redux';
-import { GetAllMovies } from '../../apicalls/movies';
+import { DeleteMovie, GetAllMovies } from '../../apicalls/movies';
 import { message } from 'statuses';
-import { HideLoading } from '../../redux/loadersSlice';
+import { HideLoading, ShowLoading } from '../../redux/loadersSlice';
 
 function MoviesList() {
     const [movies, SetMovies] = React.useState([]);
@@ -19,6 +19,23 @@ function MoviesList() {
             const response = await GetAllMovies();
             if (response.success) {
                 SetMovies(response.data);
+            } else {
+                message.error(response.message);
+            }
+            dispatch(HideLoading());
+        } catch (error) {
+            dispatch(HideLoading());
+            message.error(error.message);
+
+        }
+    }
+    const deleteMovie = async (movieId) => {
+        try {
+            dispatch(ShowLoading());
+            const response = await DeleteMovie({movieId, });
+            if (response.success) {
+                message.success(response.message);
+                getData();
             } else {
                 message.error(response.message);
             }
@@ -78,7 +95,10 @@ function MoviesList() {
                         setFormType("edit");
                         setShowMovieFormModal(true);
                     }}></i>
-                <i className="ri-delete-bin-fill"></i>
+                <i className="ri-delete-bin-fill"
+                    onClick={() => {
+                        deleteMovie(record._Id);
+                    }}></i>
             </div>
         }
     },

@@ -24,3 +24,11 @@ export const UpdateMovie = async (paylod) => {
         return error.response;
     }
 }
+export const DeleteMovie = async (paylod) => {
+    try {
+        const response = await axiosInstance.post ("/api/movies/delete-movie", paylod);
+        return response.data;
+    } catch (error) {
+        return error.response;
+    }
+}
