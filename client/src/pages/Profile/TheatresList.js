@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import Button from '../../components/Button'
 import { useNavigate } from 'react-router-dom'
-import TheatreForm from "./AithousaForm";
+import TheatreForm from "./TheatreForm";
 
 
-function AithousesList() {
+function TheatresList() {
     const [showTheatreFormModal = false, setShowTheatreFormModal] = useState(false);
     const [selectedTheatre = null, setSelectedTheatre] = useState(null);
     const [formType = 'add', setFormType] = useState('add');
@@ -33,4 +33,4 @@ function AithousesList() {
     )
 }
 
-export default AithousesList
+export default TheatresList

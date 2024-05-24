@@ -2,8 +2,7 @@ import React from 'react'
 import { Tabs } from 'antd'
 import PageTitle from '../../components/PageTitle'
 import { useSelector, useDispatch } from 'react-redux'
-import TheatresList from './AithousesList'
-
+import TheatresList from './TheatresList';
 
 function Profile() {
 

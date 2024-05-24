@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PageTitle from '../../components/PageTitle';
 import { Tabs } from 'antd';
 import MoviesList from './MoviesList';
-import AithousesList from './AithousesList';
+import TheatresList from './TheatresList';
 
 const { TabPane } = Tabs;
 
@@ -21,7 +21,7 @@ function Admin() {
                     <MoviesList />
                 </div>
                 <div key="theaters" tab="Αίθουσες">
-                    <AithousesList />
+                    <TheatresList />
                 </div>
             </Tabs>
         </div>

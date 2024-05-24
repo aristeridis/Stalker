@@ -1,22 +1,26 @@
 import { Form, Modal } from 'antd'
 import React from 'react'
 import Button from '../../components/Button'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { HideLoading, ShowLoading } from '../../redux/loadersSlice';
-import { message } from 'statuses';
-
-function AithousaForm({ showTheatreFormModal, setShowTheatreFormModal, formType, setFormType, selectedTheatre, setSelectedTheatre }) {
+import { message } from 'antd'
+import { AddNewTheatre } from '../../apicalls/theatres';
+function TheatreForm({ showTheatreFormModal, setShowTheatreFormModal, formType, setFormType, selectedTheatre, setSelectedTheatre }) {
+    const { user } = useSelector(state => state.users);
     const dispatch = useDispatch();
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
+        values.owner = user.id;
         try {
             dispatch(ShowLoading());
             let response = null;
-            if (formType === 'add') { }
+            if (formType === 'add') {
+                response = await AddNewTheatre(values);
+            }
             else { }
             if (response.success) {
                 message.success(response.message);
                 setShowTheatreFormModal(false);
-                selectedTheatre(null);
+                setSelectedTheatre(null);
             } else {
                 message.error(response.message);
             }
@@ -52,11 +56,10 @@ function AithousaForm({ showTheatreFormModal, setShowTheatreFormModal, formType,
                         }} />
                     <Button title='Save' type="submit" />
 
-
                 </div>
             </Form>
         </Modal>
     )
 }
 
-export default AithousaForm
+export default TheatreForm
