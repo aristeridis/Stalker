@@ -38,7 +38,7 @@ function TheatreForm({ showTheatreFormModal, setShowTheatreFormModal, formType, 
                 setShowTheatreFormModal(false)
                 setSelectedTheatre(null)
             }} footer={null}
-            >  
+        >
             <Form onFinish={onFinish}>
                 <Form.Item label='Όνομα' name='name' rules={[{ required: true, message: 'Ονομα Αίθουσας' }]}>
                     <input type='text' />
