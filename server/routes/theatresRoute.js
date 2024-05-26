@@ -32,4 +32,19 @@ router.get('/get-all-theatres', async (req, res) => {
         });
     }
 });
+router.get('/get-all-theatres-by-owner', async (req, res) => {
+    try {
+        const theatres = await Theatre.find({ owner: req.body.owner }).sort({ createdAt: -1 });
+        res.send({
+            success: true,
+            message: "Theatres retrieved",
+            data: theatres,
+        });
+    } catch (error) {
+        res.send({
+            success: false,
+            message: error.message,
+        });
+    }
+});
 module.exports = router;

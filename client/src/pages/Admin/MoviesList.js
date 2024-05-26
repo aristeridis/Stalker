@@ -86,7 +86,8 @@ function MoviesList() {
         render: (text, record) => {
             return moment(record.releaseDate).format("DD-MM-YYYY")
         }
-    }, {
+    }, 
+    {
         title: "Action",
         dataIndex: "action",
         render: (text, record) => {

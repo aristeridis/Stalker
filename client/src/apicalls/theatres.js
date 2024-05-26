@@ -15,3 +15,11 @@ export const GetAllTheatres = async () => {
         return error.response;
     }
 };
+export const GetAllTheatresByOwner = async (payload) => {
+    try {
+        const response = await axiosInstance.get("/api/theatres/get-all-theatres-by-owner",payload);
+        return response.data;
+    } catch (error) {
+        return error.response;
+    }
+};
