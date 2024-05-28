@@ -47,4 +47,18 @@ router.get('/get-all-theatres-by-owner', async (req, res) => {
         });
     }
 });
+router.post('/update-theatre', async (req, res) => {
+    try {
+await Theatre.findByIdAndUpdate(req.body.theatreId, req.body);
+res.send({
+    success: true,
+    message: "Theatre updated",
+});
+    } catch (error) {
+        res.send({
+             success: false,
+             message: error.message,
+        });
+    }
+});
 module.exports = router;

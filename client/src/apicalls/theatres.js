@@ -23,3 +23,11 @@ export const GetAllTheatresByOwner = async (payload) => {
         return error.response;
     }
 };
+export const UpdateTheatre = async (payload) => {
+    try {
+        const response = await axiosInstance.post("/api/theatres/update-theatre", payload);
+        return response.data;
+    } catch (error) {
+        return error.response;
+    }
+}; 

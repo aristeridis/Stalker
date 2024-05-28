@@ -4,8 +4,8 @@ import Button from '../../components/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import { HideLoading, ShowLoading } from '../../redux/loadersSlice';
 import { message } from 'antd'
-import { AddNewTheatre } from '../../apicalls/theatres';
-function TheatreForm({ showTheatreFormModal, setShowTheatreFormModal, formType, setFormType, selectedTheatre, setSelectedTheatre }) {
+import { AddNewTheatre, UpdateTheatre } from '../../apicalls/theatres';
+function TheatreForm({ showTheatreFormModal, setShowTheatreFormModal, formType, setFormType, selectedTheatre, setSelectedTheatre,getData }) {
     const { user } = useSelector(state => state.users);
     const dispatch = useDispatch();
     const onFinish = async (values) => {
@@ -16,11 +16,15 @@ function TheatreForm({ showTheatreFormModal, setShowTheatreFormModal, formType, 
             if (formType === 'add') {
                 response = await AddNewTheatre(values);
             }
-            else { }
+            else { 
+                values.theatreId = selectedTheatre._id; 
+                response = await UpdateTheatre(values);
+            }
             if (response.success) {
                 message.success(response.message);
                 setShowTheatreFormModal(false);
                 setSelectedTheatre(null);
+                getData();
             } else {
                 message.error(response.message);
             }
@@ -39,7 +43,8 @@ function TheatreForm({ showTheatreFormModal, setShowTheatreFormModal, formType, 
                 setSelectedTheatre(null)
             }} footer={null}
         >
-            <Form onFinish={onFinish}>
+            <Form onFinish={onFinish}
+            initialValues={selectedTheatre}>
                 <Form.Item label='Όνομα' name='name' rules={[{ required: true, message: 'Ονομα Αίθουσας' }]}>
                     <input type='text' />
                 </Form.Item>

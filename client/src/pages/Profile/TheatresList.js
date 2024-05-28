@@ -91,6 +91,7 @@ function TheatresList() {
                 setFormType={setFormType}
                 selectedTheatre={selectedTheatre}
                 setSelectedTheatre={setSelectedTheatre}
+                getData={getData}
             />}
         </div>
     )
