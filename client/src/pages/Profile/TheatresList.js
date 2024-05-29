@@ -5,7 +5,7 @@ import TheatreForm from "./TheatreForm";
 import { HideLoading, ShowLoading } from '../../redux/loadersSlice';
 import { message, Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetAllTheatres, GetAllTheatresByOwner } from '../../apicalls/theatres';
+import { DeleteTheatre, GetAllTheatres, GetAllTheatresByOwner } from '../../apicalls/theatres';
 
 
 function TheatresList() {
@@ -34,7 +34,24 @@ function TheatresList() {
             message.error(error.message);
         }
     };
-    const deleteTheatre = async (id) => {};
+    const deleteTheatre = async (id) => {
+        try {
+            dispatch(ShowLoading());
+            const response = await DeleteTheatre({
+                theatreId: id,
+            });
+            if (response.success) {
+                message.success(response.message);
+                getData();
+            } else {
+                message.error(response.message);
+            }
+            dispatch(HideLoading());
+        } catch (error) {
+            dispatch(HideLoading());
+            message.error(error.message);
+        }
+    };
     const columns = [
         {
             title: 'Όνομα',

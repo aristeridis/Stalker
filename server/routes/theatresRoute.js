@@ -61,4 +61,18 @@ res.send({
         });
     }
 });
+router.post('/delete-theatre', authMW, async (req, res) => {
+    try {
+        await Theatre.findByIdAndDelete(req.body.theatreId);
+        res.send({
+            success: true,
+            message: "Theatre deleted",
+        });
+    } catch (error) {
+        res.send({
+            success: false,
+            message: error.message,
+        });
+    }
+});
 module.exports = router;
