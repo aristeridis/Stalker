@@ -66,10 +66,21 @@ function TheatresList() {
             dataIndex: 'email',
         },
         {
+            title:'Status',
+            dataIndex:'isActive',
+            render: (text, record) => {
+                if (text) {
+                    return "Approved";
+        }
+        else {
+            return "Pending";
+        }
+    },},
+        {
             title: "Action",
             dataIndex: "action",
             render: (text, record) => {
-                return <div className='flex gap-2'>
+                return (<div className='flex gap-2 items-center'>
                     <i className="ri-pencil-fill"
                         onClick={() => {
                         setFormType('edit');
@@ -83,6 +94,7 @@ function TheatresList() {
                         }}
                     ></i>
                 </div>
+                );
             }
         },
     ];
