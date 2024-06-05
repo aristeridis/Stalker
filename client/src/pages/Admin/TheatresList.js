@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { HideLoading, ShowLoading } from '../../redux/loadersSlice';
-import { message, Table } from 'antd';
-import { useDispatch } from 'react-redux';
-import { GetAllTheatres, UpdateTheatre } from '../../apicalls/theatres';
-
+import React, { useEffect, useState } from "react";
+import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
+import { message, Table } from "antd";
+import { useDispatch } from "react-redux";
+import { GetAllTheatres, UpdateTheatre } from "../../apicalls/theatres";
 
 function TheatresList() {
   const [theatres = [], setTheatres] = useState([]);
@@ -46,25 +45,24 @@ function TheatresList() {
   };
   const columns = [
     {
-      title: 'Όνομα',
-      dataIndex: 'name',
+      title: "Όνομα",
+      dataIndex: "name",
     },
     {
-      title: 'Διεύθυνση',
-      dataIndex: 'address',
+      title: "Διεύθυνση",
+      dataIndex: "address",
     },
     {
-      title: 'Email',
-      dataIndex: 'email',
+      title: "Email",
+      dataIndex: "email",
     },
     {
-      title: 'Status',
-      dataIndex: 'isActive',
+      title: "Status",
+      dataIndex: "isActive",
       render: (text, record) => {
         if (text) {
           return "Approved";
-        }
-        else {
+        } else {
           return "Pending";
         }
       },
@@ -72,19 +70,27 @@ function TheatresList() {
     {
       title: "Action",
       dataIndex: "action",
-      render: (text, record) => {//TODO FIX THIS
+      render: (text, record) => {
+        //TODO FIX THIS
         return (
-          <div className='flex gap-2'>
+          <div className="flex gap-2">
             {record.isActive && (
-              <span className='underline'
+              <span
+                className="underline"
                 onClick={() => statusTheatreChange(record)}
-              >Block</span>)}
+              >
+                Block
+              </span>
+            )}
             {!record.isActive && (
-              <span className='underline'
+              <span
+                className="underline"
                 onClick={() => statusTheatreChange(record)}
-              >Approve</span>)}
-            {record.isActive && <span className='underline'>Shows</span>}
-
+              >
+                Approve
+              </span>
+            )}
+            {record.isActive && <span className="underline">Shows</span>}
           </div>
         );
       },
@@ -96,11 +102,9 @@ function TheatresList() {
 
   return (
     <div>
-
       <Table columns={columns} dataSource={theatres} />
-
     </div>
   );
 }
 
-export default TheatresList
+export default TheatresList;
