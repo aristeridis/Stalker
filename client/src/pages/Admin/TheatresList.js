@@ -72,7 +72,7 @@ function TheatresList() {
     {
       title: "Action",
       dataIndex: "action",
-      render: (text, record) => {
+      render: (text, record) => {//TODO FIX THIS
         return (
           <div className='flex gap-2'>
             {record.isActive && (

@@ -85,7 +85,7 @@ function TheatresList() {
             render: (text, record) => {
                 return (<div className='flex gap-2 items-center'>
                     <i className="ri-pencil-fill"
-                        onClick={() => {
+                        onClick={() => {//TODO fix this
                             setFormType('edit');
                             setSelectedTheatre(record);
                             setShowTheatreFormModal(true);
