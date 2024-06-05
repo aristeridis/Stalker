@@ -6,14 +6,16 @@ import { HideLoading, ShowLoading } from '../../redux/loadersSlice';
 import { message, Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { DeleteTheatre, GetAllTheatres, GetAllTheatresByOwner } from '../../apicalls/theatres';
+import Shows from './Shows';
 
 
 function TheatresList() {
-    const { user } = useSelector(state => state.users); 
+    const { user } = useSelector(state => state.users);
     const [showTheatreFormModal = false, setShowTheatreFormModal] = useState(false);
     const [selectedTheatre = null, setSelectedTheatre] = useState(null);
     const [formType = 'add', setFormType] = useState('add');
     const [theatres = [], setTheatres] = useState([]);
+    const [openShowsModal = false, setOpenShowsModal] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -66,16 +68,17 @@ function TheatresList() {
             dataIndex: 'email',
         },
         {
-            title:'Status',
-            dataIndex:'isActive',
+            title: 'Status',
+            dataIndex: 'isActive',
             render: (text, record) => {
                 if (text) {
                     return "Approved";
-        }
-        else {
-            return "Pending";
-        }
-    },},
+                }
+                else {
+                    return "Pending";
+                }
+            },
+        },
         {
             title: "Action",
             dataIndex: "action",
@@ -83,9 +86,9 @@ function TheatresList() {
                 return (<div className='flex gap-2 items-center'>
                     <i className="ri-pencil-fill"
                         onClick={() => {
-                        setFormType('edit');
-                        setSelectedTheatre(record);
-                        setShowTheatreFormModal(true);
+                            setFormType('edit');
+                            setSelectedTheatre(record);
+                            setShowTheatreFormModal(true);
                         }}></i>
                     <i
                         className="ri-delete-bin-line"
@@ -93,6 +96,12 @@ function TheatresList() {
                             deleteTheatre(record._id);
                         }}
                     ></i>
+                    {record.isActive && <span className='underline'
+                        onClick={() => {
+                            setSelectedTheatre(record);
+                            setOpenShowsModal(true);
+                        }}
+                    >Shows</span>}
                 </div>
                 );
             }
@@ -101,7 +110,7 @@ function TheatresList() {
     useEffect(() => {
         getData();
     }, []);
-    
+
     return (
         <div>
             <div className='flex justify-end'>
@@ -122,6 +131,11 @@ function TheatresList() {
                 setSelectedTheatre={setSelectedTheatre}
                 getData={getData}
             />}
+            {openShowsModal && ( <Shows
+                openShowsModal={openShowsModal}
+                setOpenShowsModal={setOpenShowsModal}
+                theatre={selectedTheatre}
+            />)}
         </div>
     )
 }
