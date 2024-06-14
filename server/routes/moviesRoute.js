@@ -9,7 +9,7 @@ router.post('/add-movie', authMW, async (req, res) => {
         await newMovie.save();
         res.send({
             success: true,
-            message: "Movie added"
+            message: "Movie added",
         });
 
     } catch (error) {
@@ -25,7 +25,7 @@ router.get('/get-all-movies', async (req, res) => {
         res.send({
             success: true,
             message: "Got the Movies ",
-            data: movies
+            data: movies,
         });
     } catch (error) {
         res.send({

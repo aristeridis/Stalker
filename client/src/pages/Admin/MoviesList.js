@@ -5,12 +5,11 @@ import moment from "moment";
 import { Table } from 'antd';
 import { useDispatch } from 'react-redux';
 import { DeleteMovie, GetAllMovies } from '../../apicalls/movies';
-//import { message } from 'statuses';
 import { message } from 'antd';
 import { HideLoading, ShowLoading } from '../../redux/loadersSlice';
 
 function MoviesList() {
-    const [movies, SetMovies] = React.useState([]);
+    const [movies, setMovies] = React.useState([]);
     const [showMovieFormModal, setShowMovieFormModal] = React.useState(false);
     const [selectedMovie, setSelectedMovie] = React.useState(null);
     const [formType, setFormType] = React.useState("add");
@@ -19,7 +18,7 @@ function MoviesList() {
         try {
             const response = await GetAllMovies();
             if (response.success) {
-                SetMovies(response.data);
+                setMovies(response.data);
             } else {
                 message.error(response.message);
             }
