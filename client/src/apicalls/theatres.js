@@ -39,3 +39,27 @@ export const DeleteTheatre = async (payload) => {
         return error.response;
     }
 };
+export const AddShow = async (payload) => {
+    try {
+        const response = await axiosInstance.post("/api/theatres/add-show", payload);
+        return response.data;
+    } catch (error) {
+        return error.response;
+    }
+}
+export const GetAllShowsByTheatre = async (payload) => {
+    try {
+        const response = await axiosInstance.post("/api/theatres/get-all-shows-by-theatre",payload);
+        return response.data;
+    } catch (error) {
+        return error.response;
+    }
+}
+export const DeleteShow = async (payload) => {
+    try {
+        const response = await axiosInstance.post("/api/theatres/delete-show", payload);
+        return response.data;
+    } catch (error) {
+        return error.response;
+    }
+}
