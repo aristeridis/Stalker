@@ -7,7 +7,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
 
 function TheatresForMovie() {
-  // get date from query string
   const tempDate = new URLSearchParams(window.location.search).get("date");
   const [date, setDate] = React.useState(
     tempDate || moment().format("YYYY-MM-DD")
@@ -70,7 +69,6 @@ function TheatresForMovie() {
 
         <hr />
 
-        {/* movie theatres */}
         <div className="mt-1">
           <h1 className="text-xl uppercase">Theatres</h1>
         </div>
