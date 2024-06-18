@@ -5,6 +5,7 @@ import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 import { GetAllMovies, GetMovieById } from "../../apicalls/movies";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
+import { GetAllTheatres, GetAllTheatresByMovie } from "../../apicalls/theatres";
 
 function TheatresForMovie() {
   const tempDate = new URLSearchParams(window.location.search).get("date");
@@ -33,10 +34,30 @@ function TheatresForMovie() {
     }
   };
 
- 
+  const getTheatres = async () => {
+    try {
+      dispatch(ShowLoading());
+      const response = await GetAllTheatresByMovie({
+        movieId: params.id,
+        date,
+      });
+      if (response.success) {
+        setTheatres(response.data);
+      } else {
+        message.error(response.message);
+      }
+      dispatch(HideLoading());
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  };
   useEffect(() => {
     getData();
   }, []);
+  useEffect(() => {
+    getTheatres();
+  }, [date]);
 
   return (
     movie && (
