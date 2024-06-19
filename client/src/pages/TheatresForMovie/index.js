@@ -93,14 +93,11 @@ function TheatresForMovie() {
         <div className="mt-1">
           <h1 className="text-xl uppercase">Theatres</h1>
         </div>
-
         <div className="mt-1 flex flex-col gap-1">
           {theatres.map((theatre) => (
             <div className="card p-2">
               <h1 className="text-md uppercase">{theatre.name}</h1>
               <h1 className="text-sm">Address : {theatre.address}</h1>
-
-              <div className="divider"></div>
 
               <div className="flex gap-2">
                 {theatre.shows
