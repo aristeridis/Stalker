@@ -2,7 +2,7 @@ const router = require("express").Router();
 const authMW = require("../middlewares/authMW");
 const Theatre = require("../models/theatresModel");
 const Show = require("../models/showModel");
-router.post("/add-theatre", async (req, res) => {
+router.post("/add-theatre", authMW, async (req, res) => {
   try {
     const newTheatre = new Theatre(req.body);
     await newTheatre.save();
@@ -17,7 +17,7 @@ router.post("/add-theatre", async (req, res) => {
     });
   }
 });
-router.get("/get-all-theatres", async (req, res) => {
+router.get("/get-all-theatres", authMW, async (req, res) => {
   try {
     const theatres = await Theatre.find().sort({ createdAt: -1 });
     res.send({
@@ -32,7 +32,7 @@ router.get("/get-all-theatres", async (req, res) => {
     });
   }
 });
-router.get("/get-all-theatres-by-owner", async (req, res) => {
+router.get("/get-all-theatres-by-owner", authMW, async (req, res) => {
   try {
     const theatres = await Theatre.find({ owner: req.body.owner }).sort({
       createdAt: -1,
@@ -49,7 +49,7 @@ router.get("/get-all-theatres-by-owner", async (req, res) => {
     });
   }
 });
-router.post("/update-theatre", async (req, res) => {
+router.post("/update-theatre", authMW, async (req, res) => {
   try {
     await Theatre.findByIdAndUpdate(req.body.theatreId, req.body);
     res.send({
@@ -77,7 +77,7 @@ router.post("/delete-theatre", authMW, async (req, res) => {
     });
   }
 });
-router.post("/add-show", async (req, res) => {
+router.post("/add-show", authMW, async (req, res) => {
   try {
     const newShow = new Theatre(req.body);
     await newShow.save();
@@ -92,7 +92,7 @@ router.post("/add-show", async (req, res) => {
     });
   }
 });
-router.get("/get-all-shows-by-theatre", async (req, res) => {
+router.get("/get-all-shows-by-theatre", authMW, async (req, res) => {
   try {
     const shows = await Show.find({ theatre: req.body.theatreId })
       .populate("movie")
@@ -109,7 +109,7 @@ router.get("/get-all-shows-by-theatre", async (req, res) => {
     });
   }
 });
-router.post("/delete-show", async (req, res) => {
+router.post("/delete-show", authMW, async (req, res) => {
   try {
     await Show.findByIdAndDelete(req.body.showId);
     res.send({
@@ -123,7 +123,7 @@ router.post("/delete-show", async (req, res) => {
     });
   }
 });
-router.post("/get-all-theatres-by-movie", async (req, res) => {
+router.post("/get-all-theatres-by-movie", authMW, async (req, res) => {
   try {
     const [movie, date] = req.body;
     const shows = await Show.find({ movie, date })
@@ -145,6 +145,23 @@ router.post("/get-all-theatres-by-movie", async (req, res) => {
       success: true,
       message: "Theatres retrieved",
       data: theatres,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+router.get("/get-show-by-id/", authMW, async (req, res) => {
+  try {
+    const show = await Show.findById(req.body.showId)
+      .populate("movie")
+      .populate("theatre");
+    res.send({
+      success: true,
+      message: "Got the Show ",
+      data: show,
     });
   } catch (error) {
     res.send({
