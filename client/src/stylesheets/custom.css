@@ -36,6 +36,16 @@
 i{
     font-size: 18px;
 }
+.selected-seat {
+    background-color: green;
+    color: white;
+}
+
+.booked-seat {
+    background-color: red;
+    cursor: not-allowed;
+    pointer-events: none;
+}
 
 .loader {
     height: 30px;
