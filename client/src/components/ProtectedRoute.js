@@ -20,11 +20,14 @@ function ProtectedRoute({ children }) {
             } else {
                 dispatch(SetUser(null));
                 message.error(response.message);
+                localStorage.removeItem('token');
+                navigate('/login');
             }
         } catch (error) {
             dispatch(HideLoading())
             dispatch(SetUser(null));
             message.error(error.message);
+          
         }
     };
     useEffect(() => {

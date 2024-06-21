@@ -1,11 +1,13 @@
 import { message } from "antd";
-import React from "react";
+import React, { Component } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 import { GetShowById } from "../../apicalls/theatres";
 import moment from "moment";
 import { BookShowTickets } from "../../apicalls/booking";
+import StripeCheckout from "react-stripe-checkout";
+import Button from "../../components/Button";
 
 function BookShow() {
   const { user } = useSelector((state) => state.users);
@@ -75,6 +77,24 @@ function BookShow() {
       </div>
     );
   };
+  const onToken = async (token) => {
+    try {
+      const response = await BookShowTickets({
+        showId: params.id,
+        seats: selectedSets,
+        userId: user._id,
+        token: token.id,
+      });
+      if (response.success) {
+        message.success(response.message);
+        navigate("/profile");
+      } else {
+        message.error(response.message);
+      }
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
   const book = async () => {
     try {
       dispatch(ShowLoading());
@@ -120,8 +140,20 @@ function BookShow() {
             {moment(show.time, "HH:mm").format("HH:mm A")}
           </h1>
         </div>
-        <div className="flex justify-center mt-2">{getSeats()}</div>
         {/*seats*/}
+        <div className="flex justify-center mt-2">{getSeats()}</div>
+        {selectedSets.length > 0 && (
+          <div className="mt-2 flex justify-center">
+            <StripeCheckout
+              currency="EUR"
+              token={onToken}
+              amount={setSelectedSets.length * show.ticketPrice * 100}
+              stripeKey="pk_test_51PU4eVP2an5rwTnGExIKCcTwmkwTji1XODpHucASakzOraHBecMgNl7r22BtyG22aMMVJRW4ZVxntnXQA8GtZm5O001FV6NSMN"
+            >
+              <Button title="Book now"></Button>
+            </StripeCheckout>
+          </div>
+        )}
       </div>
     )
   );
