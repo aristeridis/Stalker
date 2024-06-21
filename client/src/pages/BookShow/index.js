@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 import { GetShowById } from "../../apicalls/theatres";
 import moment from "moment";
-import { BookShowTickets } from "../../apicalls/booking";
+import { BookShowTickets, MakePayment } from "../../apicalls/booking";
 import StripeCheckout from "react-stripe-checkout";
 import Button from "../../components/Button";
 
@@ -79,20 +79,20 @@ function BookShow() {
   };
   const onToken = async (token) => {
     try {
-      const response = await BookShowTickets({
-        showId: params.id,
-        seats: selectedSets,
-        userId: user._id,
-        token: token.id,
-      });
+      dispatch(ShowLoading());
+      const response = await MakePayment(
+        token,
+        show.ticketPrice * 100 * selectedSets.length,
+      );
       if (response.success) {
         message.success(response.message);
-        navigate("/profile");
       } else {
         message.error(response.message);
       }
+      dispatch(HideLoading());
     } catch (error) {
       message.error(error.message);
+      dispatch(HideLoading());
     }
   };
   const book = async () => {
@@ -148,6 +148,7 @@ function BookShow() {
               currency="EUR"
               token={onToken}
               amount={setSelectedSets.length * show.ticketPrice * 100}
+              billingAddress
               stripeKey="pk_test_51PU4eVP2an5rwTnGExIKCcTwmkwTji1XODpHucASakzOraHBecMgNl7r22BtyG22aMMVJRW4ZVxntnXQA8GtZm5O001FV6NSMN"
             >
               <Button title="Book now"></Button>
