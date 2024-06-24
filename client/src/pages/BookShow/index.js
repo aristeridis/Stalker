@@ -41,44 +41,43 @@ function BookShow() {
     const rows = Math.ceil(totalSeats / columns);
 
     return (
-      <div className="flex gap-1 flex-col p-2 card">
-        {Array.from(Array(rows).keys()).map((seat, index) => {
-          return (
-            <div className="flex gap-1 justify-center">
-              {Array.from(Array(columns).keys()).map((column, index) => {
-                const seatNumber = seat * columns + column + 1;
-                let seatClass = "seat";
+      <div className="seats-container">
+        {Array.from(Array(rows).keys()).map((rowIndex) => (
+          <div className="seat-row" key={rowIndex}>
+            {Array.from(Array(columns).keys()).map((colIndex) => {
+              const seatNumber = rowIndex * columns + colIndex + 1;
+              let seatClass = "seat";
 
-                if (selectedSeats.includes(seat * columns + column + 1)) {
-                  seatClass = seatClass + " selected-seat";
-                }
+              if (selectedSeats.includes(seatNumber)) {
+                seatClass += " selected-seat";
+              }
 
-                if (show.bookedSeats.includes(seat * columns + column + 1)) {
-                  seatClass = seatClass + " booked-seat";
-                }
+              if (show.bookedSeats.includes(seatNumber)) {
+                seatClass += " booked-seat";
+              }
 
-                return (
-                  seat * columns + column + 1 <= totalSeats && (
-                    <div
-                      className={seatClass}
-                      onClick={() => {
-                        if (selectedSeats.includes(seatNumber)) {
-                          setSelectedSeats(
-                            selectedSeats.filter((item) => item !== seatNumber)
-                          );
-                        } else {
-                          setSelectedSeats([...selectedSeats, seatNumber]);
-                        }
-                      }}
-                    >
-                      <h1 className="text-sm">{seat * columns + column + 1}</h1>
-                    </div>
-                  )
-                );
-              })}
-            </div>
-          );
-        })}
+              return (
+                seatNumber <= totalSeats && (
+                  <div
+                    key={seatNumber}
+                    className={seatClass}
+                    onClick={() => {
+                      if (selectedSeats.includes(seatNumber)) {
+                        setSelectedSeats(
+                          selectedSeats.filter((item) => item !== seatNumber)
+                        );
+                      } else {
+                        setSelectedSeats([...selectedSeats, seatNumber]);
+                      }
+                    }}
+                  >
+                    <h1 className="text-sm">{seatNumber}</h1>
+                  </div>
+                )
+              );
+            })}
+          </div>
+        ))}
       </div>
     );
   };
@@ -92,13 +91,13 @@ function BookShow() {
         transactionId,
         user: user._id,
       });
+      dispatch(HideLoading());
       if (response.success) {
         message.success(response.message);
         navigate("/profile");
       } else {
         message.error(response.message);
       }
-      dispatch(HideLoading());
     } catch (error) {
       message.error(error.message);
       dispatch(HideLoading());
@@ -124,26 +123,24 @@ function BookShow() {
       dispatch(HideLoading());
     }
   };
-//TODO not reading email WHEN IT GETS PAYMENT
+
   useEffect(() => {
     getData();
   }, []);
+
   return (
     show && (
       <div>
-
         <div className="flex justify-between card p-2 items-center">
           <div>
             <h1 className="text-sm">{show.theatre.name}</h1>
             <h1 className="text-sm">{show.theatre.address}</h1>
           </div>
-
           <div>
             <h1 className="text-2xl uppercase">
               {show.movie.title} ({show.movie.language})
             </h1>
           </div>
-
           <div>
             <h1 className="text-sm">
               {moment(show.date).format("MMM Do yyyy")} -{" "}
@@ -153,7 +150,6 @@ function BookShow() {
         </div>
 
         {/* seats */}
-
         <div className="flex justify-center mt-2">{getSeats()}</div>
 
         {selectedSeats.length > 0 && (
@@ -163,7 +159,6 @@ function BookShow() {
                 <h1 className="text-sm">
                   <b>Selected Seats</b> : {selectedSeats.join(" , ")}
                 </h1>
-
                 <h1 className="text-sm">
                   <b>Total Price</b> : {selectedSeats.length * show.ticketPrice}
                 </h1>
@@ -173,7 +168,7 @@ function BookShow() {
               token={onToken}
               amount={selectedSeats.length * show.ticketPrice * 100}
               billingAddress
-              stripeKey="pk_test_51IYnC0SIR2AbPxU0TMStZwFUoaDZle9yXVygpVIzg36LdpO8aSG8B9j2C0AikiQw2YyCI8n4faFYQI5uG3Nk5EGQ00lCfjXYvZ"
+              stripeKey="pk_test_51PU4eVP2an5rwTnGExIKCcTwmkwTji1XODpHucASakzOraHBecMgNl7r22BtyG22aMMVJRW4ZVxntnXQA8GtZm5O001FV6NSMN"
             >
               <Button title="Book Now" />
             </StripeCheckout>

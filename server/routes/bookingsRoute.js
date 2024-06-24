@@ -3,6 +3,7 @@ const stripe = require("stripe")(process.env.stripe_key);
 const authMW = require("../middlewares/authMW");
 const Booking = require("../models/bookingsModel");
 const Show = require("../models/showModel");
+
 router.post("/make-payment", authMW, async (req, res) => {
   try {
     const { token, amount } = req.body;
@@ -17,12 +18,15 @@ router.post("/make-payment", authMW, async (req, res) => {
       currency: "eur",
       customer: customer.id,
       receipt_email: token.email,
-      description: "Ticket Booked for Movie",
+      description: "Ticket Booked",
     });
+
+    const transactionId = charge.id;
 
     res.send({
       success: true,
       message: "Payment done",
+      data: transactionId,
     });
   } catch (error) {
     res.send({
@@ -44,7 +48,7 @@ router.post("/book-show", authMW, async (req, res) => {
 
     res.send({
       success: true,
-      message: "Show booked",
+      message: "Show booked ",
       data: newBooking,
     });
   } catch (error) {
@@ -55,7 +59,7 @@ router.post("/book-show", authMW, async (req, res) => {
   }
 });
 
-router.get("/get-bookings", authMW, async (req, res) => {
+router.get("/get-bookings-by-user", authMW, async (req, res) => {
   try {
     const bookings = await Booking.find({ user: req.body.userId })
       .populate("show")
@@ -87,5 +91,6 @@ router.get("/get-bookings", authMW, async (req, res) => {
     });
   }
 });
+
 
 module.exports = router;

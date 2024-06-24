@@ -38,7 +38,7 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
     }
   };
 
-  const handleAddShow = async (values) => {
+  const addShow = async (values) => {
     try {
       dispatch(ShowLoading());
       const response = await AddShow({
@@ -59,7 +59,7 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
     }
   };
 
-  const handleDelete = async (id) => {
+  const deleteShow = async (id) => {
     try {
       dispatch(ShowLoading());
       const response = await DeleteShow({ showId: id });
@@ -79,7 +79,7 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
 
   const columns = [
     {
-      title: "Show Name",
+      title: "Name",
       dataIndex: "name",
     },
     {
@@ -125,7 +125,7 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
               <i
                 className="ri-delete-bin-line"
                 onClick={() => {
-                  handleDelete(record._id);
+                  deleteShow(record._id);
                 }}
               ></i>
             )}
@@ -170,13 +170,13 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
       {view === "table" && <Table columns={columns} dataSource={shows} />}
 
       {view === "form" && (
-        <Form layout="vertical" onFinish={handleAddShow}>
+        <Form layout="vertical" onFinish={addShow}>
           <Row gutter={[16, 16]}>
             <Col span={8}>
               <Form.Item
-                label="Show Name"
+                label="Name"
                 name="name"
-                rules={[{ required: true, message: "Please input show name!" }]}
+                rules={[{ required: true, message: " input name" }]}
               >
                 <input />
               </Form.Item>
@@ -185,7 +185,7 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
               <Form.Item
                 label="Date"
                 name="date"
-                rules={[{ required: true, message: "Please input show date!" }]}
+                rules={[{ required: true, message: " date" }]}
               >
                 <input
                   type="date"
@@ -198,7 +198,7 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
               <Form.Item
                 label="Time"
                 name="time"
-                rules={[{ required: true, message: "Please input show time!" }]}
+                rules={[{ required: true, message: "input time!" }]}
               >
                 <input type="time" />
               </Form.Item>
@@ -208,7 +208,7 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
               <Form.Item
                 label="Movie"
                 name="movie"
-                rules={[{ required: true, message: "Please select movie!" }]}
+                rules={[{ required: true, message: " select movie!" }]}
               >
                 <select>
                   <option value="">Select Movie</option>
@@ -223,9 +223,7 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
               <Form.Item
                 label="Ticket Price"
                 name="ticketPrice"
-                rules={[
-                  { required: true, message: "Please input ticket price!" },
-                ]}
+                rules={[{ required: true, message: " ticket price!" }]}
               >
                 <input type="number" />
               </Form.Item>
@@ -235,9 +233,7 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
               <Form.Item
                 label="Total Seats"
                 name="totalSeats"
-                rules={[
-                  { required: true, message: "Please input total seats!" },
-                ]}
+                rules={[{ required: true, message: " total seats!" }]}
               >
                 <input type="number" />
               </Form.Item>

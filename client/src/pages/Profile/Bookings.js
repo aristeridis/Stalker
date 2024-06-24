@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 import { message, Row, Table, Col } from "antd";
-import { GetBookingsOfUser } from "../../apicalls/bookings";
+import { GetBookingsByUser } from "../../apicalls/booking";
 import moment from "moment";
 
 function Bookings() {
@@ -15,7 +15,7 @@ function Bookings() {
   const getData = async () => {
     try {
       dispatch(ShowLoading());
-      const response = await GetBookingsOfUser();
+      const response = await GetBookingsByUser();
       if (response.success) {
         setBookings(response.data);
       } else {
@@ -33,7 +33,7 @@ function Bookings() {
   }, []);
   return (
     <div>
-      <Row gutter={[16, 16]}>
+      <Row gutter={[8, 8]}>
         {bookings.map((booking) => (
           <Col span={12}>
             <div className="card p-2 flex justify-between uppercase">
@@ -51,7 +51,7 @@ function Bookings() {
                 </h1>
 
                 <h1 className="text-sm">
-                  Amount : ₹ {booking.show.ticketPrice * booking.seats.length}
+                  Amount :{booking.show.ticketPrice * booking.seats.length} €
                 </h1>
                 <h1 className="text-sm">Booking ID: {booking._id}</h1>
               </div>
