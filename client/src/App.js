@@ -23,7 +23,6 @@ function App() {
           <div className="loader"></div>
         </div>
       )}
-
       <BrowserRouter>
         <Routes>
           <Route
@@ -50,15 +49,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          />
-
           <Route
             path="/profile"
             element={

@@ -1,7 +1,7 @@
-import React from 'react'
-import { Tabs } from 'antd'
-import PageTitle from '../../components/PageTitle'
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react';
+import { Tabs } from 'antd';
+import PageTitle from '../../components/PageTitle';
+import { useSelector, useDispatch } from 'react-redux';
 import TheatresList from './TheatresList';
 
 function Profile() {
@@ -21,4 +21,4 @@ function Profile() {
   );
 }
 
-export default Profile
+export default Profile;

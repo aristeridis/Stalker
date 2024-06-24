@@ -4,11 +4,11 @@ export const MakePayment = async (token, amount) => {
     const response = await axiosInstance.post(
       "/api/bookings/make-payment",
       token,
-      amount
+      amount,
     );
     return response.data;
   } catch (error) {
-    return error.data;
+    return error.response.data;
   }
 };
 export const BookShowTickets = async (payload) => {
@@ -19,18 +19,18 @@ export const BookShowTickets = async (payload) => {
     );
     return response.data;
   } catch (error) {
-    return error.data;
+    return error.response.data;
   }
 };
 
 export const GetBookingsByUser = async (payload) => {
   try {
-    const response = await axiosInstance.post(
+    const response = await axiosInstance.get(
       "/api/bookings/get-bookings-by-user",
       payload
     );
     return response.data;
   } catch (error) {
-    return error.data;
+    return error.response.data;
   }
-}
+};

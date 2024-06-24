@@ -1,5 +1,6 @@
 const { axiosInstance } = require(".");
 
+// Register a new user
 export const RegisterUser = async (payload) => {
     try {
         const response = await axiosInstance.post("/api/users/register", payload);
@@ -9,7 +10,8 @@ export const RegisterUser = async (payload) => {
     }
 };
 
-export const LoginUser = async (payload) => { 
+// Login a user
+export const LoginUser = async (payload) => {
     try {
         const response = await axiosInstance.post("/api/users/login", payload);
         return response.data;
@@ -17,6 +19,8 @@ export const LoginUser = async (payload) => {
         return error.response;
     }
 }
+
+// Get current user
 export const GetCurrentUser = async () => {
     try {
         const response = await axiosInstance.get("/api/users/get-current-user");
@@ -24,4 +28,4 @@ export const GetCurrentUser = async () => {
     } catch (error) {
         return error;
     }
-}
+};

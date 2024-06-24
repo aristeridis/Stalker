@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { GetAllTheatres, UpdateTheatre } from "../../apicalls/theatres";
+import { useDispatch, useSelector } from "react-redux";
 import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 import { message, Table } from "antd";
-import { useDispatch } from "react-redux";
-import { GetAllTheatres, UpdateTheatre } from "../../apicalls/theatres";
 
 function TheatresList() {
   const [theatres = [], setTheatres] = useState([]);
@@ -23,6 +23,7 @@ function TheatresList() {
       message.error(error.message);
     }
   };
+
   const statusTheatreChange = async (theatre) => {
     try {
       dispatch(ShowLoading());
@@ -43,18 +44,27 @@ function TheatresList() {
       message.error(error.message);
     }
   };
+
   const columns = [
     {
-      title: "Όνομα",
+      title: "Name",
       dataIndex: "name",
     },
     {
-      title: "Διεύθυνση",
+      title: "Address",
       dataIndex: "address",
     },
+  
     {
       title: "Email",
       dataIndex: "email",
+    },
+    {
+      title: "Owner",
+      dataIndex: "owner",
+      render: (text, record) => {
+        return record.owner?.name;
+      },
     },
     {
       title: "Status",
@@ -63,7 +73,7 @@ function TheatresList() {
         if (text) {
           return "Approved";
         } else {
-          return "Pending";
+          return "Pending / Blocked";
         }
       },
     },
@@ -71,9 +81,8 @@ function TheatresList() {
       title: "Action",
       dataIndex: "action",
       render: (text, record) => {
-        //TODO FIX THIS
         return (
-          <div className="flex gap-2">
+          <div className="flex gap-1">
             {record.isActive && (
               <span
                 className="underline"
@@ -90,16 +99,15 @@ function TheatresList() {
                 Approve
               </span>
             )}
-            {record.isActive && <span className="underline">Shows</span>}
           </div>
         );
       },
     },
   ];
+
   useEffect(() => {
     getData();
   }, []);
-
   return (
     <div>
       <Table columns={columns} dataSource={theatres} />

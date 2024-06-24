@@ -12,9 +12,9 @@ function ProtectedRoute({ children }) {
     const dispatch = useDispatch();
     const getCurrentUser = async () => {
         try {
-            dispatch(ShowLoading())
+            dispatch(ShowLoading());
             const response = await GetCurrentUser();
-            dispatch(HideLoading())
+            dispatch(HideLoading());
             if (response.success) {
                 dispatch(SetUser(response.data));
             } else {
@@ -78,4 +78,4 @@ function ProtectedRoute({ children }) {
 }
 
 
-export default ProtectedRoute
+export default ProtectedRoute;

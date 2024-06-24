@@ -16,6 +16,7 @@ function MoviesList() {
     const dispatch = useDispatch();
     const getData = async () => {
         try {
+            dispatch(ShowLoading());
             const response = await GetAllMovies();
             if (response.success) {
                 setMovies(response.data);
@@ -90,7 +91,7 @@ function MoviesList() {
         title: "Action",
         dataIndex: "action",
         render: (text, record) => {
-            return <div className='flex gap-2'>
+            return (<div className='flex gap-2'>
                 <i className="ri-pencil-fill"
                     onClick={() => {
                         setSelectedMovie(record);
@@ -104,9 +105,10 @@ function MoviesList() {
                     }}
                 ></i>
             </div>
+            );
         }
     },
-    ]
+    ];
     useEffect(() => {
         getData();
     }, []);
@@ -131,7 +133,7 @@ function MoviesList() {
                 getData={getData}
             />)}
         </div>
-    )
+    );
 }
 
 export default MoviesList;

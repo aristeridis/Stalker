@@ -80,5 +80,5 @@ router.get('/get-current-user', authMW, async (req, res) => {
             message: error.message,
         });
     }
-})
+});
 module.exports = router;

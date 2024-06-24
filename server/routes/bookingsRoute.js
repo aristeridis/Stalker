@@ -6,27 +6,23 @@ const Show = require("../models/showModel");
 router.post("/make-payment", authMW, async (req, res) => {
   try {
     const { token, amount } = req.body;
+
     const customer = await stripe.customers.create({
       email: token.email,
       source: token.id,
     });
-    const charge = await stripe.charges.create(
-      {
-        amount: amount,
-        currency: "eur",
-        customer: customer.id,
-        receipt_email: token.email,
-        description: "Agorastike",
-      },
-      {
-        idempotencyKey: Math.random().toString(36).substring(7),
-      }
-    );
-    const transactionId=charge.id;
+
+    const charge = await stripe.charges.create({
+      amount: amount,
+      currency: "eur",
+      customer: customer.id,
+      receipt_email: token.email,
+      description: "Ticket Booked for Movie",
+    });
+
     res.send({
       success: true,
-      message: "Payment success",
-      data: transactionId ,
+      message: "Payment done",
     });
   } catch (error) {
     res.send({
@@ -35,18 +31,21 @@ router.post("/make-payment", authMW, async (req, res) => {
     });
   }
 });
+
 router.post("/book-show", authMW, async (req, res) => {
   try {
     const newBooking = new Booking(req.body);
     await newBooking.save();
-    const show = await Show.findById(req.body.show);
 
-    await Show.findOneAndUpdate(req.body.show, {
+    const show = await Show.findById(req.body.show);
+    await Show.findByIdAndUpdate(req.body.show, {
       bookedSeats: [...show.bookedSeats, ...req.body.seats],
     });
+
     res.send({
       success: true,
-      message: "Booking added",
+      message: "Show booked",
+      data: newBooking,
     });
   } catch (error) {
     res.send({
@@ -55,23 +54,30 @@ router.post("/book-show", authMW, async (req, res) => {
     });
   }
 });
-router.get("/get-all-bookings", authMW, async (req, res) => {
+
+router.get("/get-bookings", authMW, async (req, res) => {
   try {
-    const bookings = await Booking.find({user:req.body.userId}).populate("show").populate({
-      path: "show",
-      populate: {
-        path: "movie",
-        model: "movies",
-      },
-    }).populate("user").populate({
-      path: "show",
-      populate: {
-        path: "theatre",
-        model: "theatres",
-      },});
+    const bookings = await Booking.find({ user: req.body.userId })
+      .populate("show")
+      .populate({
+        path: "show",
+        populate: {
+          path: "movie",
+          model: "movies",
+        },
+      })
+      .populate("user")
+      .populate({
+        path: "show",
+        populate: {
+          path: "theatre",
+          model: "theatres",
+        },
+      });
+
     res.send({
       success: true,
-      message: "Bookings retrieved",
+      message: "Bookings fetched",
       data: bookings,
     });
   } catch (error) {
@@ -81,4 +87,5 @@ router.get("/get-all-bookings", authMW, async (req, res) => {
     });
   }
 });
+
 module.exports = router;

@@ -58,10 +58,10 @@ function Home() {
                 <img src={movie.poster} alt="" height={200} />
 
                 <div className="flex justify-center p-1"></div>
+                <h1 className="text-lg uppercase justify-center">
+                  {movie.title}
+                </h1>
               </div>
-              <h1 className="text-lg uppercase justify-center">
-                {movie.title}
-              </h1>
             </Col>
           ))}
       </Row>

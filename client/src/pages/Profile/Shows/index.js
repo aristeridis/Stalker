@@ -1,29 +1,28 @@
-import { Col, Form, message, Modal, Row, Table } from "antd";
-import React from "react";
+import { Col, Form, Modal, Row, Table, message } from "antd";
+import React, { useEffect } from "react";
 import Button from "../../../components/Button";
-import { useDispatch } from "react-redux";
 import { GetAllMovies } from "../../../apicalls/movies";
+import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../../redux/loadersSlice";
-import {
-  GetAllShowsByTheatre,
-  AddShow,
-  DeleteTheatre,
-} from "../../../apicalls/theatres";
+import {AddShow,DeleteShow,GetAllShowsByTheatre} from "../../../apicalls/theatres";
+import moment from "moment";
 
-function Shows(openShowsModal, setOpenShowsModal, theatre) {
+function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
   const [view, setView] = React.useState("table");
   const [shows, setShows] = React.useState([]);
+  const [movies, setMovies] = React.useState([]);
   const dispatch = useDispatch();
-  const [movie, setMovie] = React.useState({});
+
   const getData = async () => {
     try {
       dispatch(ShowLoading());
       const moviesResponse = await GetAllMovies();
       if (moviesResponse.success) {
-        setMovie(moviesResponse.data);
+        setMovies(moviesResponse.data);
       } else {
         message.error(moviesResponse.message);
       }
+
       const showsResponse = await GetAllShowsByTheatre({
         theatreId: theatre._id,
       });
@@ -38,11 +37,12 @@ function Shows(openShowsModal, setOpenShowsModal, theatre) {
       dispatch(HideLoading());
     }
   };
-  const addShow = async (show) => {
+
+  const handleAddShow = async (values) => {
     try {
       dispatch(ShowLoading());
       const response = await AddShow({
-        ...show,
+        ...values,
         theatre: theatre._id,
       });
       if (response.success) {
@@ -58,12 +58,12 @@ function Shows(openShowsModal, setOpenShowsModal, theatre) {
       dispatch(HideLoading());
     }
   };
-  const deleteTheatre = async (id) => {
+
+  const handleDelete = async (id) => {
     try {
       dispatch(ShowLoading());
-      const response = await DeleteTheatre({
-        showId: id,
-      });
+      const response = await DeleteShow({ showId: id });
+
       if (response.success) {
         message.success(response.message);
         getData();
@@ -76,14 +76,18 @@ function Shows(openShowsModal, setOpenShowsModal, theatre) {
       dispatch(HideLoading());
     }
   };
+
   const columns = [
     {
-      title: "Name",
+      title: "Show Name",
       dataIndex: "name",
     },
     {
       title: "Date",
       dataIndex: "date",
+      render: (text, record) => {
+        return moment(text).format("MMM Do YYYY");
+      },
     },
     {
       title: "Time",
@@ -101,8 +105,8 @@ function Shows(openShowsModal, setOpenShowsModal, theatre) {
       dataIndex: "ticketPrice",
     },
     {
-      title: "Seats",
-      dataIndex: "seats",
+      title: "Total Seats",
+      dataIndex: "totalSeats",
     },
     {
       title: "Available Seats",
@@ -116,12 +120,12 @@ function Shows(openShowsModal, setOpenShowsModal, theatre) {
       dataIndex: "action",
       render: (text, record) => {
         return (
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-1 items-center">
             {record.bookedSeats.length === 0 && (
               <i
                 className="ri-delete-bin-line"
                 onClick={() => {
-                  DeleteTheatre(record._id);
+                  handleDelete(record._id);
                 }}
               ></i>
             )}
@@ -130,18 +134,28 @@ function Shows(openShowsModal, setOpenShowsModal, theatre) {
       },
     },
   ];
-  React.useEffect(() => {
+
+  useEffect(() => {
     getData();
   }, []);
+
   return (
     <Modal
       title=""
       open={openShowsModal}
       onCancel={() => setOpenShowsModal(false)}
+      width={1400}
+      footer={null}
     >
-      <h1 className="text-primary text-xl">Theatre : {theatre.name}</h1>
-      <div className="flex justify-between items-center">
-        <h1 className="text-md">{view === "table" ? "Shows" : "Add Show"}</h1>
+      <h1 className="text-primary text-md uppercase mb-1">
+        Theatre : {theatre.name}
+      </h1>
+      <hr />
+
+      <div className="flex justify-between mt-1 mb-1 items-center">
+        <h1 className="text-md uppercase">
+          {view === "table" ? "Shows" : "Add Show"}
+        </h1>
         {view === "table" && (
           <Button
             variant="outlined"
@@ -152,15 +166,17 @@ function Shows(openShowsModal, setOpenShowsModal, theatre) {
           />
         )}
       </div>
+
       {view === "table" && <Table columns={columns} dataSource={shows} />}
+
       {view === "form" && (
-        <Form layout="vertical" onFinish={addShow}>
-          <Row gutter={(16, 16)}>
+        <Form layout="vertical" onFinish={handleAddShow}>
+          <Row gutter={[16, 16]}>
             <Col span={8}>
               <Form.Item
                 label="Show Name"
                 name="name"
-                rules={[{ required: true, message: "Please enter name movie" }]}
+                rules={[{ required: true, message: "Please input show name!" }]}
               >
                 <input />
               </Form.Item>
@@ -169,63 +185,75 @@ function Shows(openShowsModal, setOpenShowsModal, theatre) {
               <Form.Item
                 label="Date"
                 name="date"
-                rules={[{ required: true, message: "Please enter date" }]}
+                rules={[{ required: true, message: "Please input show date!" }]}
               >
-                <input type="date" />
+                <input
+                  type="date"
+                  min={new Date().toISOString().split("T")[0]}
+                />
               </Form.Item>
             </Col>
+
             <Col span={8}>
               <Form.Item
                 label="Time"
                 name="time"
-                rules={[{ required: true, message: "Please enter time" }]}
+                rules={[{ required: true, message: "Please input show time!" }]}
               >
                 <input type="time" />
               </Form.Item>
             </Col>
+
             <Col span={8}>
-              <Form.Item label="Movie" name="movie">
+              <Form.Item
+                label="Movie"
+                name="movie"
+                rules={[{ required: true, message: "Please select movie!" }]}
+              >
                 <select>
-                  <option value="">Επίλεξε ταινία</option>
-                  {movie.map((movie) => (
-                    <option value={movie.id}>{movie.title}</option>
+                  <option value="">Select Movie</option>
+                  {movies.map((movie) => (
+                    <option value={movie._id}>{movie.title}</option>
                   ))}
                 </select>
               </Form.Item>
             </Col>
+
             <Col span={8}>
               <Form.Item
                 label="Ticket Price"
                 name="ticketPrice"
                 rules={[
-                  { required: true, message: "Please enter ticket price" },
+                  { required: true, message: "Please input ticket price!" },
                 ]}
               >
                 <input type="number" />
               </Form.Item>
             </Col>
+
             <Col span={8}>
               <Form.Item
-                label="Available Seats"
-                name="availableSeats"
+                label="Total Seats"
+                name="totalSeats"
                 rules={[
-                  { required: true, message: "Please enter available seats" },
+                  { required: true, message: "Please input total seats!" },
                 ]}
               >
                 <input type="number" />
               </Form.Item>
             </Col>
-            <div className="flex justify-end">
-              <Button
-                variant="outlined"
-                title="Cancel"
-                onClick={() => {
-                  setView("table");
-                }}
-              />
-              <Button variant="contained" title="Save" type={"submit"} />
-            </div>
           </Row>
+
+          <div className="flex justify-end gap-1">
+            <Button
+              variant="outlined"
+              title="Cancel"
+              onClick={() => {
+                setView("table");
+              }}
+            />
+            <Button variant="contained" title="SAVE" type="submit" />
+          </div>
         </Form>
       )}
     </Modal>

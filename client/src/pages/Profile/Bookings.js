@@ -51,7 +51,7 @@ function Bookings() {
                 </h1>
 
                 <h1 className="text-sm">
-                  Amount : EUR{booking.show.ticketPrice * booking.seats.length}
+                  Amount : ₹ {booking.show.ticketPrice * booking.seats.length}
                 </h1>
                 <h1 className="text-sm">Booking ID: {booking._id}</h1>
               </div>

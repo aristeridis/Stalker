@@ -5,7 +5,7 @@ import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 import { GetAllMovies, GetMovieById } from "../../apicalls/movies";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
-import { GetAllTheatres, GetAllTheatresByMovie } from "../../apicalls/theatres";
+import { GetAllTheatresByMovie } from "../../apicalls/theatres";
 
 function TheatresForMovie() {
   const tempDate = new URLSearchParams(window.location.search).get("date");
@@ -37,10 +37,7 @@ function TheatresForMovie() {
   const getTheatres = async () => {
     try {
       dispatch(ShowLoading());
-      const response = await GetAllTheatresByMovie({
-        movieId: params.id,
-        date,
-      });
+      const response = await GetAllTheatresByMovie({ date, movie: params.id });
       if (response.success) {
         setTheatres(response.data);
       } else {
@@ -52,13 +49,14 @@ function TheatresForMovie() {
       message.error(error.message);
     }
   };
+
   useEffect(() => {
     getData();
   }, []);
+
   useEffect(() => {
     getTheatres();
   }, [date]);
-
   return (
     movie && (
       <div>
@@ -90,14 +88,18 @@ function TheatresForMovie() {
 
         <hr />
 
+        {/* movie theatres */}
         <div className="mt-1">
           <h1 className="text-xl uppercase">Theatres</h1>
         </div>
+
         <div className="mt-1 flex flex-col gap-1">
           {theatres.map((theatre) => (
             <div className="card p-2">
               <h1 className="text-md uppercase">{theatre.name}</h1>
               <h1 className="text-sm">Address : {theatre.address}</h1>
+
+              <div className="divider"></div>
 
               <div className="flex gap-2">
                 {theatre.shows

@@ -92,7 +92,6 @@ function TheatresList() {
             <i
               className="ri-pencil-fill"
               onClick={() => {
-                //TODO fix this
                 setFormType("edit");
                 setSelectedTheatre(record);
                 setShowTheatreFormModal(true);
