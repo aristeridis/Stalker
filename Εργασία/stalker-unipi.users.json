@@ -1,0 +1,48 @@
+[{
+  "_id": {
+    "$oid": "6632b0257b9b052a80a04bda"
+  },
+  "name": "alex",
+  "email": "aristeridis@hotmail.gr",
+  "password": "$2a$10$LcMTGqKhDa8uuoFxuEge6.Py2FKLgYzxNuDRhe9MMng3.zwi/vJLG",
+  "isAdmin": true,
+  "createdAt": {
+    "$date": "2024-05-01T21:12:05.887Z"
+  },
+  "updatedAt": {
+    "$date": "2024-05-01T21:12:05.887Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66798a20b72ff4e9f8a69373"
+  },
+  "name": "alex",
+  "email": "alexarist@outlook.com",
+  "password": "$2a$10$xgtUhX0amm7wwmZm5SW5F.DfPh6i6kkesLqewA.IaZ209BkxnpzFa",
+  "isAdmin": false,
+  "createdAt": {
+    "$date": "2024-06-24T15:00:48.238Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-24T15:00:48.238Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66798adcb72ff4e9f8a69399"
+  },
+  "name": "alex",
+  "email": "alexpaokara@outlook.com",
+  "password": "$2a$10$HZ0HcldjqW62tHYXmtW58.mJUiB6XOPUzhHX3MfNevONC4cb45X5C",
+  "isAdmin": false,
+  "createdAt": {
+    "$date": "2024-06-24T15:03:56.728Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-24T15:03:56.728Z"
+  },
+  "__v": 0
+}]

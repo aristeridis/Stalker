@@ -1,0 +1,36 @@
+[{
+  "_id": {
+    "$oid": "6679835bb72ff4e9f8a69308"
+  },
+  "name": "Test 2",
+  "address": "fjbf",
+  "email": "djbd@fmail.com",
+  "owner": null,
+  "isActive": false,
+  "createdAt": {
+    "$date": "2024-06-24T14:31:55.254Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-24T15:03:41.293Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66798aacb72ff4e9f8a69383"
+  },
+  "name": "ΠΤΗ ΠΑΛΑΙ",
+  "address": "ΠΑΓΚΡΑΤΙ",
+  "email": "aristeridis@hotmail.gr",
+  "owner": {
+    "$oid": "66798a20b72ff4e9f8a69373"
+  },
+  "isActive": true,
+  "createdAt": {
+    "$date": "2024-06-24T15:03:08.922Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-24T15:03:23.709Z"
+  },
+  "__v": 0
+}]

@@ -1,0 +1,67 @@
+[{
+  "_id": {
+    "$oid": "6679bd80ff2f7b4db33a27d5"
+  },
+  "show": {
+    "$oid": "66798b1db72ff4e9f8a693aa"
+  },
+  "user": {
+    "$oid": "66798adcb72ff4e9f8a69399"
+  },
+  "seats": [
+    43
+  ],
+  "transactionId": "ch_3PVHo4P2an5rwTnG1D9wlFA0",
+  "createdAt": {
+    "$date": "2024-06-24T18:40:00.810Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-24T18:40:00.810Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6679be02ff2f7b4db33a27f8"
+  },
+  "show": {
+    "$oid": "66798b1db72ff4e9f8a693aa"
+  },
+  "user": {
+    "$oid": "66798adcb72ff4e9f8a69399"
+  },
+  "seats": [
+    44
+  ],
+  "transactionId": "ch_3PVHq9P2an5rwTnG0INGW4AP",
+  "createdAt": {
+    "$date": "2024-06-24T18:42:10.547Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-24T18:42:10.547Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "667ab6da76d8f9f4f6e2203d"
+  },
+  "show": {
+    "$oid": "66798b1db72ff4e9f8a693aa"
+  },
+  "user": {
+    "$oid": "66798adcb72ff4e9f8a69399"
+  },
+  "seats": [
+    3,
+    4
+  ],
+  "transactionId": "ch_3PVYPeP2an5rwTnG0WMQ4rhh",
+  "createdAt": {
+    "$date": "2024-06-25T12:23:54.570Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-25T12:23:54.570Z"
+  },
+  "__v": 0
+}]

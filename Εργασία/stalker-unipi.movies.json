@@ -1,0 +1,42 @@
+[{
+  "_id": {
+    "$oid": "663e3c4474fa46e71acf3a5d"
+  },
+  "title": "Stalker",
+  "description": "Andrei Tarkovsky Stalker Movie",
+  "duration": 123,
+  "genre": "Drama",
+  "language": "Russian",
+  "releaseDate": {
+    "$date": "2024-05-02T00:00:00.000Z"
+  },
+  "poster": "https://static.displate.com/270x380/displate/2020-07-03/0e0bf72c766359f800b8fde2494dc9a7_b6c3fc98ff5739c0d7c8e8d01f5f410d.jpg",
+  "createdAt": {
+    "$date": "2024-05-10T15:24:52.345Z"
+  },
+  "updatedAt": {
+    "$date": "2024-05-16T17:31:52.982Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "664237a29353e01f9f44896f"
+  },
+  "title": "testab",
+  "description": "abafkh",
+  "duration": 11,
+  "genre": "dkjdj",
+  "language": "dkjbd",
+  "releaseDate": {
+    "$date": "2024-05-16T00:00:00.000Z"
+  },
+  "poster": "https://cdn.pixabay.com/photo/2014/06/03/19/38/road-sign-361514_960_720.png",
+  "createdAt": {
+    "$date": "2024-05-13T15:54:10.989Z"
+  },
+  "updatedAt": {
+    "$date": "2024-05-20T15:05:41.612Z"
+  },
+  "__v": 0
+}]

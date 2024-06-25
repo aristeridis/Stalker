@@ -1,0 +1,31 @@
+[{
+  "_id": {
+    "$oid": "66798b1db72ff4e9f8a693aa"
+  },
+  "name": "1",
+  "date": {
+    "$date": "2024-06-30T00:00:00.000Z"
+  },
+  "time": "10:01",
+  "movie": {
+    "$oid": "663e3c4474fa46e71acf3a5d"
+  },
+  "ticketPrice": 12,
+  "totalSeats": 100,
+  "bookedSeats": [
+    43,
+    44,
+    3,
+    4
+  ],
+  "theatre": {
+    "$oid": "66798aacb72ff4e9f8a69383"
+  },
+  "createdAt": {
+    "$date": "2024-06-24T15:05:01.511Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-25T12:23:54.958Z"
+  },
+  "__v": 0
+}]
