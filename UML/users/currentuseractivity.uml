@@ -1,0 +1,15 @@
+@startuml
+start
+:Send request with JWT token;
+
+:Verify token via middleware;
+if (Token valid?) then (Yes)
+  :Extract userId from token;
+  :Find user in DB;
+  :Return user data (without password);
+  stop
+else (No)
+  :Return unauthorized error;
+  stop
+endif
+@enduml

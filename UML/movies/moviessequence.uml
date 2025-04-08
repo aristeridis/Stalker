@@ -1,0 +1,17 @@
+@startuml
+actor "Admin" as A
+participant "MovieController" as MC
+participant "MovieService" as MS
+participant "MovieRepository" as MR
+participant "Database" as DB
+
+' Ο Admin ξεκινά την διαδικασία προσθήκης ταινίας
+A -> MC : addMovie(payload)
+MC -> MS : addMovie(payload)
+MS -> MR : save(newMovie)
+MR -> DB : insert(newMovie)
+DB --> MR : confirmation (newMovie saved)
+MR --> MS : saved movie instance
+MS --> MC : success response
+MC --> A : success response
+@enduml

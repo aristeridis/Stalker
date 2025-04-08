@@ -1,0 +1,20 @@
+@startuml
+node "User Interface (Frontend)" {
+  artifact "Registration and Login Pages" as RegLogin
+}
+
+node "Web Server (Backend)" {
+  artifact "Express.js API" as API
+  artifact "User Authentication Logic" as AuthLogic
+  artifact "User Database Logic" as UserLogic
+}
+
+node "Database Server" {
+  artifact "MongoDB Database" as DB
+}
+
+RegLogin -down-> API : "Form Submission"
+API -down-> AuthLogic : "Authenticate User"
+API -down-> UserLogic : "User Data CRUD"
+UserLogic -down-> DB : "Save & Retrieve User Data"
+@enduml

@@ -1,0 +1,102 @@
+@startuml
+package "Απαιτήσεις Εφαρμογής" {
+  
+  ' Απαιτήσεις Χρηστών (Users)
+  class Req1 <<requirement>> {
+    id: R-USER-001
+    text: "Το σύστημα θα επιτρέπει την εγγραφή νέων χρηστών."
+  }
+  
+  class Req2 <<requirement>> {
+    id: R-USER-002
+    text: "Το σύστημα θα επιτρέπει τη σύνδεση των χρηστών (login)."
+  }
+  
+  class Req3 <<requirement>> {
+    id: R-USER-003
+    text: "Το σύστημα θα παρέχει πληροφορίες του συνδεδεμένου χρήστη (get current user)."
+  }
+  
+  ' Απαιτήσεις Ταινιών (Movies)
+  class Req4 <<requirement>> {
+    id: R-MOVIE-001
+    text: "Το σύστημα θα επιτρέπει την προσθήκη νέων ταινιών."
+  }
+  
+  class Req5 <<requirement>> {
+    id: R-MOVIE-002
+    text: "Το σύστημα θα επιτρέπει την ενημέρωση των ταινιών."
+  }
+  
+  class Req6 <<requirement>> {
+    id: R-MOVIE-003
+    text: "Το σύστημα θα επιτρέπει τη διαγραφή ταινιών."
+  }
+  
+  class Req7 <<requirement>> {
+    id: R-MOVIE-004
+    text: "Το σύστημα θα επιτρέπει την προβολή όλων των ταινιών."
+  }
+  
+  class Req8 <<requirement>> {
+    id: R-MOVIE-005
+    text: "Το σύστημα θα επιτρέπει την προβολή λεπτομερειών ταινίας (μέσω get by ID)."
+  }
+  
+  ' Απαιτήσεις Θεάτρων (Theatres)
+  class Req9 <<requirement>> {
+    id: R-THEATRE-001
+    text: "Το σύστημα θα επιτρέπει την προσθήκη νέων θεάτρων."
+  }
+  
+  class Req10 <<requirement>> {
+    id: R-THEATRE-002
+    text: "Το σύστημα θα επιτρέπει την ενημέρωση των θεάτρων."
+  }
+  
+  class Req11 <<requirement>> {
+    id: R-THEATRE-003
+    text: "Το σύστημα θα επιτρέπει τη διαγραφή θεάτρων."
+  }
+  
+  class Req12 <<requirement>> {
+    id: R-THEATRE-004
+    text: "Το σύστημα θα επιτρέπει την εμφάνιση όλων των θεάτρων."
+  }
+  
+  class Req13 <<requirement>> {
+    id: R-THEATRE-005
+    text: "Το σύστημα θα επιτρέπει την εμφάνιση θεάτρων ανά ιδιοκτήτη."
+  }
+  
+  ' Απαιτήσεις Παραστάσεων (Shows)
+  class Req14 <<requirement>> {
+    id: R-SHOW-001
+    text: "Το σύστημα θα επιτρέπει την προσθήκη νέας παράστασης (show)."
+  }
+  
+  class Req15 <<requirement>> {
+    id: R-SHOW-002
+    text: "Το σύστημα θα επιτρέπει την εμφάνιση παραστάσεων ανά θέατρο."
+  }
+  
+  class Req16 <<requirement>> {
+    id: R-SHOW-003
+    text: "Το σύστημα θα επιτρέπει τη διαγραφή παραστάσεων."
+  }
+  
+  class Req17 <<requirement>> {
+    id: R-THEATRE-006
+    text: "Το σύστημα θα επιτρέπει την εμφάνιση θεάτρων βάσει συγκεκριμένης ταινίας."
+  }
+  
+  class Req18 <<requirement>> {
+    id: R-SHOW-004
+    text: "Το σύστημα θα επιτρέπει την εμφάνιση λεπτομερειών μιας παράστασης."
+  }
+  
+  ' Δείγματα σχέσεων (προαιρετικά)
+  Req2 -down-> Req3 : "ενισχύει"
+  Req4 -down-> Req5 : "σχετίζεται"
+}
+@enduml

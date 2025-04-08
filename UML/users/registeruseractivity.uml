@@ -1,0 +1,16 @@
+@startuml
+start
+:User fills registration form;
+:Send registration data to server;
+
+if (Email already exists?) then (Yes)
+  :Show error message;
+  stop
+else (No)
+  :Encrypt password (bcrypt);
+  :Create new User object;
+  :Save to database;
+  :Send success response;
+  stop
+endif
+@enduml

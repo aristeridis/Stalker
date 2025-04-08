@@ -1,0 +1,16 @@
+@startuml
+object Admin
+object MovieController
+object MovieService
+object MovieModel
+object MongoDB
+
+Admin -> MovieController : 1: sendRequest(payload)
+MovieController -> MovieService : 2: addMovie(payload)
+MovieService -> MovieModel : 3: new Movie(payload)
+MovieModel -> MongoDB : 4: save()
+MongoDB --> MovieModel : 5: success
+MovieModel --> MovieService : 6: return
+MovieService --> MovieController : 7: return
+MovieController --> Admin : 8: response(success)
+@enduml

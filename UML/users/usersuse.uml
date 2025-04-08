@@ -1,0 +1,8 @@
+@startuml
+actor "Χρήστης" as User
+
+User --> (Εγγραφή Χρήστη) : RegisterUser
+User --> (Σύνδεση Χρήστη) : LoginUser
+User --> (Λήψη Στοιχείων Χρήστη) : GetCurrentUser
+
+@enduml

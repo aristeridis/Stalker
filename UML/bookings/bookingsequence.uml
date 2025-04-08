@@ -1,0 +1,25 @@
+@startuml
+actor User
+participant Frontend
+participant Backend
+participant PaymentService
+
+User -> Frontend: Request to book show tickets
+Frontend -> Backend: Get available shows
+Backend -> Backend: Fetch available shows from database
+Backend -> Frontend: Return available shows
+
+User -> Frontend: Select show and seats
+Frontend -> Backend: Send booking request (show, seats)
+Backend -> Backend: Create booking in database
+Backend -> Frontend: Return booking confirmation
+
+User -> Frontend: Request to make payment
+Frontend -> PaymentService: Send payment request (amount, token)
+PaymentService -> PaymentService: Process payment
+PaymentService -> Backend: Update payment status
+Backend -> Backend: Update booking status
+Backend -> Frontend: Return payment confirmation
+Frontend -> User: Display booking and payment confirmation
+
+@enduml

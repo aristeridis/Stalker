@@ -1,0 +1,25 @@
+@startuml
+object movie1 {
+    title = "Inception"
+    description = "A mind-bending thriller about dreams."
+    duration = 148
+    genre = "Sci-Fi"
+    language = "English"
+    releaseDate = "2010-07-16"
+    poster = "inception.jpg"
+    createdAt = "2023-04-01T10:00:00"
+    updatedAt = "2023-04-01T10:00:00"
+}
+
+object movie2 {
+    title = "The Dark Knight"
+    description = "Batman faces his nemesis, the Joker."
+    duration = 152
+    genre = "Action"
+    language = "English"
+    releaseDate = "2008-07-18"
+    poster = "dark_knight.jpg"
+    createdAt = "2023-04-01T11:00:00"
+    updatedAt = "2023-04-01T11:00:00"
+}
+@enduml

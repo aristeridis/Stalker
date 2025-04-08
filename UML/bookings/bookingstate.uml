@@ -1,0 +1,26 @@
+@startuml
+[*] --> Pending
+
+Pending --> Confirmed : Book Show
+Confirmed --> Paid : Make Payment
+Confirmed --> Canceled : Cancel Booking
+Paid --> Completed : Show Attended
+Canceled --> [*]
+Completed --> [*]
+
+state Pending {
+  [*] --> WaitingForBooking
+  WaitingForBooking --> Confirmed : Booking Confirmed
+}
+
+state Confirmed {
+  [*] --> WaitingForPayment
+  WaitingForPayment --> Paid : Payment Successful
+  WaitingForPayment --> Canceled : Booking Canceled
+}
+
+state Paid {
+  [*] --> WaitingForShow
+  WaitingForShow --> Completed : Show Attended
+}
+@enduml

@@ -1,0 +1,18 @@
+@startuml
+actor "Theatre Owner" as Owner
+actor "User" as User
+
+' Use cases για Theatre Owner
+Owner --> (Add Theatre)
+Owner --> (Update Theatre)
+Owner --> (Delete Theatre)
+Owner --> (Get All Theatres By Owner)
+Owner --> (Add Show)
+Owner --> (Delete Show)
+
+' Use cases για Authenticated User
+User --> (Get All Theatres)
+User --> (Get All Shows By Theatre)
+User --> (Get All Theatres By Movie)
+User --> (Get Show By ID)
+@enduml

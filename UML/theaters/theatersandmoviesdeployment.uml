@@ -1,0 +1,23 @@
+@startuml
+node "Web Client (Frontend)" {
+  artifact "Movie Management Interface" as MovieUI
+  artifact "Theatre Management Interface" as TheatreUI
+}
+
+node "API Server (Backend)" {
+  artifact "Express.js API" as API
+  artifact "Movie Management Logic" as MovieLogic
+  artifact "Theatre Management Logic" as TheatreLogic
+}
+
+node "Database Server" {
+  artifact "MongoDB Database" as DB
+}
+
+MovieUI -down-> API : "Manage Movies"
+TheatreUI -down-> API : "Manage Theatres"
+API -down-> MovieLogic : "Movie CRUD Operations"
+API -down-> TheatreLogic : "Theatre CRUD Operations"
+MovieLogic -down-> DB : "Save Movie Data"
+TheatreLogic -down-> DB : "Save Theatre Data"
+@enduml

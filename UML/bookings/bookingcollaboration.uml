@@ -1,0 +1,31 @@
+@startuml
+object User
+object Frontend
+object Backend
+object Booking
+object Show
+object Movie
+object Theatre
+object PaymentService
+
+User -> Frontend : Requests to book show tickets
+Frontend -> Backend : Get available shows
+Backend -> Show : Fetch show details
+Show -> Movie : Contains movie details
+Show -> Theatre : Contains theatre details
+Backend -> Frontend : Return available shows
+
+User -> Frontend : Select show and seats
+Frontend -> Backend : Send booking request (show, seats)
+Backend -> Booking : Create booking (user, show, seats)
+Booking -> Show : Reference to the show
+Booking -> User : Reference to the user
+Frontend -> Backend : Return booking confirmation
+
+User -> Frontend : Request to make payment
+Frontend -> PaymentService : Send payment request (amount, token)
+PaymentService -> Backend : Process payment
+Backend -> Booking : Update booking status (paid)
+Backend -> Frontend : Return payment confirmation
+Frontend -> User : Display booking and payment confirmation
+@enduml

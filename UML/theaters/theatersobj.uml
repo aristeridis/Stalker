@@ -1,0 +1,36 @@
+@startuml
+' Δημιουργία αντικειμένου για ένα Theatre
+object theatre1 {
+    name = "Cinobo"
+    address = "Athens, Greece"
+    email = "info@cinobo.gr"
+    owner = "user123"
+    isActive = true
+    createdAt = "2025-04-01T10:00:00"
+    updatedAt = "2025-04-01T10:00:00"
+}
+
+' Δημιουργία αντικειμένων για Show
+object show1 {
+    date = "2025-04-10"
+    time = "20:00"
+    price = 12.50
+    createdAt = "2025-04-01T10:15:00"
+    updatedAt = "2025-04-01T10:15:00"
+    movie = "movie_id_example"
+}
+
+object show2 {
+    date = "2025-04-11"
+    time = "18:00"
+    price = 10.00
+    createdAt = "2025-04-01T10:20:00"
+    updatedAt = "2025-04-01T10:20:00"
+    movie = "movie_id_example2"
+}
+
+' Δημιουργία σχέσης μεταξύ των αντικειμένων για να απεικονίσουμε ότι τα shows ανήκουν στο theatre1
+show1 --> theatre1 : belongs to
+show2 --> theatre1 : belongs to
+
+@enduml

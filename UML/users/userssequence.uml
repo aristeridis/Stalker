@@ -1,0 +1,19 @@
+@startuml
+actor "User" as U
+participant "UserController" as UC
+participant "UserService" as US
+participant "UserRepository" as UR
+participant "Database" as DB
+
+' Εκκίνηση της διαδικασίας εγγραφής από το χρήστη
+U -> UC : register(payload)
+UC -> US : registerUser(payload)
+US -> UR : findByEmail(payload.email)
+UR -> DB : query(email)
+DB --> UR : result (no user found)
+US -> UR : save(newUser)
+UR -> DB : insert(newUser)
+DB --> UR : confirmation
+US --> UC : success response
+UC --> U : return success
+@enduml

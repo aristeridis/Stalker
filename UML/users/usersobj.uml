@@ -1,0 +1,21 @@
+@startuml
+' Αντικείμενα χρήστη
+object user1 {
+    name = "Νίκος Παπαδόπουλος"
+    email = "nikos@example.com"
+    password = "hashed_password_123"
+    isAdmin = false
+    createdAt = "2025-04-08T09:00:00"
+    updatedAt = "2025-04-08T09:00:00"
+}
+
+object user2 {
+    name = "Μαρία Ιωάννου"
+    email = "maria@example.com"
+    password = "hashed_password_456"
+    isAdmin = true
+    createdAt = "2025-04-08T09:05:00"
+    updatedAt = "2025-04-08T09:05:00"
+}
+
+@enduml

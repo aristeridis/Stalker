@@ -1,0 +1,41 @@
+@startuml
+object booking1 {
+  show = show1
+  user = user1
+  seats = ["A1", "A2"]
+  transactionId = "txn12345"
+  createdAt = "2025-04-01T10:30:00"
+  updatedAt = "2025-04-01T10:35:00"
+}
+
+object show1 {
+  movie = movie1
+  theatre = theatre1
+  date = "2025-04-10"
+  time = "20:00"
+  ticketPrice = 15.00
+  poster = "movie-poster-url"
+}
+
+object movie1 {
+  title = "Stalker:"
+  language = "Russian"
+  poster = "movie-poster-url"
+}
+
+object theatre1 {
+  name = "Cinobo"
+  address = "Akadimias 33"
+}
+
+object user1 {
+  name = "Alexandros Aristeridis"
+  email = "alexarist@gmail.com"
+  phone = "+32326"
+}
+
+booking1 --|> show1 : references
+booking1 --|> user1 : references
+show1 --|> movie1 : references
+show1 --|> theatre1 : references
+@enduml

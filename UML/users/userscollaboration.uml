@@ -1,0 +1,22 @@
+@startuml
+object Client
+object UserController
+object UserService
+object UserModel
+object MongoDB
+object Bcrypt
+object JWT
+
+Client -> UserController : 1: send login request (email, password)
+UserController -> UserService : 2: loginUser(payload)
+UserService -> UserModel : 3: findOne({email})
+UserModel -> MongoDB : 4: query
+MongoDB --> UserModel : 5: user data
+UserModel --> UserService : 6: return user
+UserService -> Bcrypt : 7: compare(password, hashedPassword)
+Bcrypt --> UserService : 8: result
+UserService -> JWT : 9: sign({userId})
+JWT --> UserService : 10: token
+UserService --> UserController : 11: return token
+UserController --> Client : 12: send response
+@enduml

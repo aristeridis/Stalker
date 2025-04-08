@@ -1,0 +1,16 @@
+@startuml
+actor "Owner" as O
+participant "TheatreController" as TC
+participant "TheatreService" as TS
+participant "TheatreModel (Mongoose)" as TM
+participant "MongoDB" as DB
+
+O -> TC : POST /api/theatres/add-theatre (payload)
+TC -> TS : addTheatre(payload)
+TS -> TM : new Theatre(payload)\nsave()
+TM -> DB : Insert document
+DB --> TM : Acknowledgement
+TM --> TS : Success
+TS --> TC : Response (success: true)
+TC --> O : JSON response ("Theatre added")
+@enduml

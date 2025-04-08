@@ -1,0 +1,24 @@
+@startuml
+start
+:User submits login form;
+:Send credentials to server;
+
+:Find user by email;
+
+if (User exists?) then (Yes)
+  :Compare password (bcrypt);
+
+  if (Password valid?) then (Yes)
+    :Generate JWT token;
+    :Send token in response;
+    stop
+  else (No)
+    :Send invalid password message;
+    stop
+  endif
+
+else (No)
+  :Send user not found message;
+  stop
+endif
+@enduml

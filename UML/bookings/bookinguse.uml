@@ -1,0 +1,27 @@
+@startuml
+actor User
+actor Admin
+
+User -> (Book Show Tickets)
+User -> (Make Payment)
+User -> (View Bookings)
+
+Admin -> (View All Bookings)
+Admin -> (Cancel Booking)
+Admin -> (Modify Show Details)
+
+(Book Show Tickets) --> (Select Show)
+(Book Show Tickets) --> (Select Seats)
+(Book Show Tickets) --> (Submit Booking)
+
+(Make Payment) --> (Provide Payment Info)
+(Make Payment) --> (Process Payment)
+
+(View Bookings) --> (Display User Bookings)
+
+(View All Bookings) --> (Display All Bookings)
+
+(Cancel Booking) --> (Confirm Cancellation)
+(Modify Show Details) --> (Update Show Info)
+
+@enduml

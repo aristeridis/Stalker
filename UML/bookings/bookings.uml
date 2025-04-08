@@ -1,0 +1,47 @@
+@startuml
+class Booking {
+  - show: Show
+  - user: User
+  - seats: List<String>
+  - transactionId: String
+  - createdAt: Date
+  - updatedAt: Date
+  + createBooking(): void
+  + cancelBooking(): void
+}
+
+class Show {
+  - movie: Movie
+  - theatre: Theatre
+  - date: Date
+  - time: String
+  - ticketPrice: Double
+  - poster: String
+  + displayShowDetails(): void
+}
+
+class Movie {
+  - title: String
+  - language: String
+  - poster: String
+  + displayMovieInfo(): void
+}
+
+class Theatre {
+  - name: String
+  - address: String
+  + displayTheatreInfo(): void
+}
+
+class User {
+  - name: String
+  - email: String
+  - phone: String
+  + viewBookings(): List<Booking>
+}
+
+Booking "1" *-- "1" Show : references
+Booking "1" *-- "1" User : references
+Show "1" *-- "1" Movie : references
+Show "1" *-- "1" Theatre : references
+@enduml

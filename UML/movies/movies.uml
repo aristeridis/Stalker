@@ -1,0 +1,27 @@
+@startuml
+' Ορισμός της κλάσης Movie με τα attributes που ορίζονται στο Mongoose schema
+class Movie {
+  - title: String
+  - description: String
+  - duration: Number
+  - genre: String
+  - language: String
+  - releaseDate: Date
+  - poster: String
+  - createdAt: Date
+  - updatedAt: Date
+}
+
+' Ορισμός της κλάσης MovieService που περιλαμβάνει τις λειτουργίες για το CRUD
+class MovieService {
+  + addMovie(payload): Response
+  + getAllMovies(): Response
+  + updateMovie(payload): Response
+  + deleteMovie(payload): Response
+  + getMovieById(id): Response
+}
+
+' Σχέση: Η MovieService χρησιμοποιεί την κλάση Movie για να διαχειριστεί τις εγγραφές.
+MovieService --> Movie : Uses
+
+@enduml

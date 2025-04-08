@@ -1,0 +1,25 @@
+@startuml
+node "Web Client (Frontend)" {
+  artifact "User Interface (Angular)" as UI
+}
+
+node "Application Server" {
+  artifact "Express.js API" as API
+  artifact "Authentication Middleware" as AuthMW
+  artifact "Show Management Logic" as ShowLogic
+  artifact "Theatre Management Logic" as TheatreLogic
+  artifact "Movie Management Logic" as MovieLogic
+}
+
+node "Database Server" {
+  artifact "MongoDB Database" as DB
+}
+
+UI -down-> API : "HTTP Requests"
+API -down-> AuthMW : "Authentication"
+API -down-> ShowLogic : "Manage Shows"
+API -down-> TheatreLogic : "Manage Theatres"
+API -down-> MovieLogic : "Manage Movies"
+API -down-> DB : "CRUD Operations"
+
+@enduml

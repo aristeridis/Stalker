@@ -1,0 +1,44 @@
+@startuml
+' Ορισμός της κλάσης Theatre βάσει του Mongoose schema
+class Theatre {
+  - name: String
+  - address: String
+  - email: String
+  - owner: ObjectId
+  - isActive: Boolean
+  - createdAt: Date
+  - updatedAt: Date
+  + Theatre(name: String, address: String, email: String, owner: ObjectId)
+}
+
+' Υπόδειγμα κλάσης Show (δεν δίνεται ο πλήρης ορισμός)
+class Show {
+  - theatre: ObjectId   ' Αναφορά στο Theatre, ή μπορεί να αναπαρασταθεί και ως Theatre (association)
+  - movie: ObjectId     ' Αναφορά στο Movie (δεν περιλαμβάνεται εδώ, αλλά ως υπόδειγμα)
+  - date: Date
+  - time: String
+  - price: Number
+  - createdAt: Date
+  - updatedAt: Date
+}
+
+' Ορισμός κλάσης υπηρεσίας για τη διαχείριση θεάτρων και shows
+class TheatreService {
+  + addTheatre(payload): Response
+  + getAllTheatres(): Response
+  + getAllTheatresByOwner(owner: ObjectId): Response
+  + updateTheatre(payload): Response
+  + deleteTheatre(theatreId: ObjectId): Response
+  + addShow(payload): Response
+  + getAllShowsByTheatre(theatreId: ObjectId): Response
+  + deleteShow(showId: ObjectId): Response
+  + getAllTheatresByMovie(payload): Response
+  + getShowById(showId: ObjectId): Response
+}
+
+' Σχέσεις:
+' Η TheatreService διαχειρίζεται τις κλάσεις Theatre και Show
+TheatreService --> Theatre : manages
+TheatreService --> Show : manages
+
+@enduml

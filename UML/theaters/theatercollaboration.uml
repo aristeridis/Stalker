@@ -1,0 +1,16 @@
+@startuml
+object Owner
+object TheatreController
+object TheatreService
+object TheatreModel
+object MongoDB
+
+Owner -> TheatreController : 1: sendRequest(payload)
+TheatreController -> TheatreService : 2: addTheatre(payload)
+TheatreService -> TheatreModel : 3: new Theatre(payload)
+TheatreModel -> MongoDB : 4: save()
+MongoDB --> TheatreModel : 5: success
+TheatreModel --> TheatreService : 6: return
+TheatreService --> TheatreController : 7: return
+TheatreController --> Owner : 8: response(success)
+@enduml

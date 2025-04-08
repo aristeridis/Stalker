@@ -1,0 +1,29 @@
+@startuml
+' Ορισμός της κλάσης User βάσει του Mongoose schema
+class User {
+  - name: String
+  - email: String
+  - password: String
+  - isAdmin: Boolean
+  - createdAt: Date
+  - updatedAt: Date
+  + User(name: String, email: String, password: String, isAdmin: Boolean)
+}
+
+' Κλάση που αναπαριστά τις λειτουργίες του API για τους χρήστες
+class UserController {
+  + registerUser(payload: Object): Response
+  + loginUser(payload: Object): Response
+  + getCurrentUser(): Response
+}
+
+' Κλάση Authentication Middleware (υπόδειγμα) για έλεγχο πρόσβασης
+class AuthMiddleware {
+  + verifyToken(token: String): Boolean
+}
+
+' Σχέσεις
+UserController --> User : creates / manages
+UserController ..> AuthMiddleware : uses
+
+@enduml
