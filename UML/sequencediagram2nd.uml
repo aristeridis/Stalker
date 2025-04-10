@@ -1,0 +1,32 @@
+@startuml
+title Sequence Diagram - Book Show Tickets (Version 2)
+
+actor "User" as U
+participant "BookingController" as BC
+participant "BookingService" as BS
+participant "ShowRepository" as SR
+participant "PaymentGateway" as PG
+participant "BookingRepository" as BR
+
+' Ο χρήστης ξεκινά την αίτηση κράτησης
+U -> BC : POST /api/bookings/book-show (payload)
+BC -> BS : bookShowTickets(payload)
+
+' Η BookingService αναζητά την προβολή με βάση το showId
+BS -> SR : findShowById(payload.showId)
+SR --> BS : return Show object
+
+' Εκτέλεση πληρωμής
+alt Payment succeeds
+    BS -> PG : makePayment(token, amount)
+    PG --> BS : payment success response
+    ' Αποθήκευση της κράτησης στη βάση
+    BS -> BR : saveBooking(new Booking)
+    BR --> BS : booking confirmation
+    BS --> BC : return success response
+else Payment fails
+    BS --> BC : return error response ("Payment failed")
+end
+
+BC --> U : HTTP response (success or error)
+@enduml

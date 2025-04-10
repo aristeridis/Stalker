@@ -1,0 +1,43 @@
+@startuml
+title Component Diagram - Movie Booking System (Version 2)
+
+' Ορισμός βασικών εξαρτημάτων (components)
+component "User Interface\n(Frontend)" as UI
+component "Web API\n(Backend - Express)" as API
+component "Authentication Module" as AuthModule
+component "Booking Module" as BookingModule
+component "Payment Module" as PaymentModule
+component "Movie Management" as MovieModule
+component "Theatre Management" as TheatreModule
+component "Show Management" as ShowModule
+component "User Management" as UserModule
+
+' Ορισμός βάσης δεδομένων
+component "Database\n(MongoDB)" as DB
+
+' Εξωτερική υπηρεσία για πληρωμές
+component "Payment Gateway\n(External Service)" as PaymentGateway
+
+' Συσχέτιση εξαρτημάτων:
+UI --> API : HTTP Requests
+API --> AuthModule : Login/Registration
+API --> BookingModule : Book Tickets
+API --> PaymentModule : Process Payments
+API --> MovieModule : Manage Movies
+API --> TheatreModule : Manage Theatres
+API --> ShowModule : Manage Shows
+API --> UserModule : Manage Users
+
+' Επικοινωνίες με την βάση δεδομένων
+AuthModule --> DB : CRUD (User Data)
+BookingModule --> DB : CRUD (Booking Data)
+MovieModule --> DB : CRUD (Movie Data)
+TheatreModule --> DB : CRUD (Theatre Data)
+ShowModule --> DB : CRUD (Show Data)
+UserModule --> DB : CRUD (User Profiles)
+PaymentModule --> DB : Record Payment Data
+
+' Σύνδεση του Payment Module με εξωτερική υπηρεσία πληρωμών
+PaymentModule --> PaymentGateway : Process Payment
+
+@enduml

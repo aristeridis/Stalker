@@ -1,0 +1,30 @@
+@startuml
+title Deployment Diagram - Movie Booking System (Version 2)
+
+' Ορισμός του client (frontend)
+node "Web Client" as Client {
+  artifact "Frontend Application\n(React / Angular)" as Frontend
+}
+
+' Ορισμός του application server (backend)
+node "Application Server" as AppServer {
+  artifact "Express.js API" as API
+  artifact "Modules: \n- AuthModule\n- BookingModule\n- PaymentModule\n- MovieModule\n- TheatreModule\n- ShowModule\n- UserModule" as Modules
+}
+
+' Ορισμός του server της βάσης δεδομένων
+node "Database Server" as DBServer {
+  artifact "MongoDB Database" as MongoDB
+}
+
+' Ορισμός εξωτερικής υπηρεσίας πληρωμών
+node "Payment Gateway Server" as PaymentGateway {
+  artifact "External Payment Service" as ExternalPayment
+}
+
+' Σχέσεις μεταξύ των κόμβων:
+Client --> AppServer : "HTTP/HTTPS Requests"
+AppServer --> DBServer : "CRUD Operations"
+AppServer --> PaymentGateway : "Payment API Calls"
+
+@enduml

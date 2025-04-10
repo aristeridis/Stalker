@@ -1,0 +1,43 @@
+@startuml
+title Object Diagram - Movie Booking System (Snapshot)
+
+object user1 {
+  name = "Alexandros Aristeridis"
+  email = "alexarist@gmail.com"
+  isAdmin = false
+}
+
+object movie1 {
+  title = "Inception"
+  language = "English"
+  duration = 148
+}
+
+object theatre1 {
+  name = "Cinobo"
+  address = ""Akadimias 33"
+}
+
+object show1 {
+  date = "2025-04-12"
+  time = "19:00"
+  ticketPrice = 10
+}
+
+object booking1 {
+  seats = ["A1", "A2"]
+  transactionId = "TX123456"
+}
+
+object payment1 {
+  token = "tok_abc123"
+  amount = 20
+}
+
+user1 --> booking1 : books
+booking1 --> show1 : for
+show1 --> movie1 : shows
+show1 --> theatre1 : in
+booking1 --> payment1 : has
+
+@enduml

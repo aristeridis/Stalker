@@ -1,0 +1,22 @@
+@startuml
+title Collaboration Diagram - Book Show Tickets (2η έκδοση)
+
+object :User
+object :BookingController
+object :BookingService
+object :ShowRepository
+object :BookingRepository
+object :PaymentGateway
+
+:User -> :BookingController : requestBooking(showId, seats, paymentToken)
+:BookingController -> :BookingService : bookShowTickets(showId, seats, paymentToken)
+:BookingService -> :ShowRepository : findShowById(showId)
+:ShowRepository --> :BookingService : Show
+:BookingService -> :PaymentGateway : makePayment(token, amount)
+:PaymentGateway --> :BookingService : success
+:BookingService -> :BookingRepository : save(Booking)
+:BookingRepository --> :BookingService : confirmation
+:BookingService --> :BookingController : bookingConfirmation
+:BookingController --> :User : confirmationMessage
+
+@enduml

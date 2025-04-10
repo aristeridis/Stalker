@@ -1,0 +1,33 @@
+@startuml
+title Deployment Diagram - Τελική Εκτελέσιμη Έκδοση
+
+' Ορισμός κόμβων για το περιβάλλον παραγωγής
+
+node "Client (Browser / Mobile Device)" as client {
+   artifact "User Interface\n(React/Angular)" as UI
+}
+
+node "Web Server" as webServer {
+   artifact "Express.js API" as API
+   artifact "Authentication Module" as AuthModule
+   artifact "Booking Module" as BookingModule
+   artifact "Movie & Theatre Module" as EntertainmentModule
+   artifact "Payment Module" as PaymentModule
+}
+
+node "Application Server" as appServer {
+   database "MongoDB Database" as db
+}
+
+node "External Payment Gateway" as extPaymentGateway {
+   artifact "Payment Processing Service" as PaymentService
+}
+
+' Συσχέτιση κόμβων και επικοινωνίες
+client --> webServer : HTTP/HTTPS Requests
+webServer --> appServer : REST API Calls (CRUD Operations)
+appServer --> db : Data Storage & Retrieval
+
+webServer --> extPaymentGateway : Payment Processing\n(HTTPS)
+
+@enduml

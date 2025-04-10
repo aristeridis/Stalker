@@ -1,0 +1,63 @@
+@startuml
+title Class Diagram - Movie Booking System (Version 2)
+
+class User {
+  - id: ObjectId
+  - name: String
+  - email: String
+  - password: String
+  - isAdmin: Boolean
+  + register()
+  + login()
+}
+
+class Movie {
+  - id: ObjectId
+  - title: String
+  - description: String
+  - duration: Number
+  - language: String
+  - releaseDate: Date
+  - poster: String
+  + listMovies()
+}
+
+class Theatre {
+  - id: ObjectId
+  - name: String
+  - address: String
+  + listTheatres()
+}
+
+class Show {
+  - id: ObjectId
+  - movie: Movie
+  - theatre: Theatre
+  - date: Date
+  - time: String
+  - ticketPrice: Number
+  + listShows()
+}
+
+class Booking {
+  - id: ObjectId
+  - user: User
+  - show: Show
+  - seats: List<String>
+  - transactionId: String
+  + bookTickets()
+}
+
+class Payment {
+  - token: String
+  - amount: Number
+  + makePayment()
+}
+
+User "1" -- "0..*" Booking : books
+Booking "1" -- "1" Show : for
+Show "1" -- "1" Movie : plays
+Show "1" -- "1" Theatre : located in
+Booking "1" -- "1" Payment : has
+
+@enduml

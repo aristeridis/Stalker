@@ -1,0 +1,18 @@
+@startuml
+title State Diagram - Booking Process (Version 2)
+
+[*] --> Pending
+
+Pending --> PaymentProcessing : Initiate Payment
+PaymentProcessing --> Confirmed : Payment Successful
+PaymentProcessing --> Failed : Payment Failed
+
+Failed --> Pending : Retry Payment
+
+Confirmed --> Cancelled : Cancellation Request
+Confirmed --> Completed : Booking Finalized
+
+Cancelled --> [*]
+Completed --> [*]
+
+@enduml

@@ -1,0 +1,34 @@
+@startuml
+title Deployment Diagram - 1η Εκτελέσιμη Έκδοση
+
+' Κόμβος για τη συσκευή του τελικού χρήστη (π.χ., browser)
+node "Client Device\n(Browser)" as Client {
+   artifact "User Interface\n(Simple React/Angular App)" as UI
+}
+
+' Κόμβος για τον web server που φιλοξενεί το API
+node "Web Server" as WebServer {
+   artifact "Express.js API (v1.0)" as API
+   component "User Module" as UserMod
+   component "Movie Module" as MovieMod
+   component "Booking Module" as BookingMod
+}
+
+' Κόμβος για τη βάση δεδομένων
+node "Database Server" as DB {
+  database "MongoDB Instance" as MongoDB
+}
+
+' Σχέσεις και επικοινωνίες μεταξύ κόμβων
+Client --> UI : HTTP/HTTPS Requests
+UI --> API : REST API Calls
+
+API --> UserMod : Handle User Requests
+API --> MovieMod : Handle Movie Requests
+API --> BookingMod : Handle Booking Requests
+
+UserMod --> MongoDB : CRUD (User Data)
+MovieMod --> MongoDB : CRUD (Movie Data)
+BookingMod --> MongoDB : CRUD (Booking Data)
+
+@enduml

@@ -1,0 +1,35 @@
+@startuml
+title Use Case Diagram - Movie Booking System (Version 2)
+
+actor "Κανονικός Χρήστης" as User
+actor "Διαχειριστής" as Admin
+actor "Σύστημα Πληρωμών" as PaymentGateway
+
+rectangle "Movie Booking System" {
+
+    usecase "Εγγραφή Χρήστη" as UC1
+    usecase "Είσοδος Χρήστη" as UC2
+    usecase "Προβολή Κινηματογραφικών Ταινιών" as UC3
+    usecase "Κράτηση Εισιτηρίων" as UC4
+    usecase "Προβολή Κρατήσεων" as UC5
+    usecase "Πραγματοποίηση Πληρωμής" as UC6
+
+    usecase "Διαχείριση Ταινιών" as UC7
+    usecase "Διαχείριση Θεάτρων" as UC8
+    usecase "Διαχείριση Προβολών" as UC9
+}
+
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+User --> UC6
+
+UC6 --> PaymentGateway : χρησιμοποιεί
+
+Admin --> UC7
+Admin --> UC8
+Admin --> UC9
+
+@enduml
