@@ -4,7 +4,7 @@ title Deployment Diagram - Τελική Εκτελέσιμη Έκδοση
 ' Ορισμός κόμβων για το περιβάλλον παραγωγής
 
 node "Client (Browser / Mobile Device)" as client {
-   artifact "User Interface\n(React/Angular)" as UI
+   artifact "User Interface\n(React)" as UI
 }
 
 node "Web Server" as webServer {

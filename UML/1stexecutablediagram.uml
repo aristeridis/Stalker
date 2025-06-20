@@ -3,7 +3,7 @@ title Deployment Diagram - 1η Εκτελέσιμη Έκδοση
 
 ' Κόμβος για τη συσκευή του τελικού χρήστη (π.χ., browser)
 node "Client Device\n(Browser)" as Client {
-   artifact "User Interface\n(Simple React/Angular App)" as UI
+   artifact "User Interface\n(React)" as UI
 }
 
 ' Κόμβος για τον web server που φιλοξενεί το API
